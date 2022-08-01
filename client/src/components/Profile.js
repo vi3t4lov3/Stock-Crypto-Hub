@@ -1,4 +1,4 @@
-
+import React from 'react';
 import ProfileCard from './ProfileCard';
 import ProfileInfo from './ProfileInfo';
 import "../assets/css/Profile.css"

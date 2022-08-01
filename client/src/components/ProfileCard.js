@@ -2,7 +2,6 @@ import React from 'react'
 
 import Cover from "../assets/img/cover.jpg";
 import Profile from "../assets/img/profileImg.jpg";
-import resume from "../assets/docs/TuResume.pdf"
 import "../assets/css/ProfileCard.css"
 const ProfileCard = () => {
   const ProfilePage = true;
@@ -48,11 +47,6 @@ const ProfileCard = () => {
       I am a hardworking and analytical individual who possesses strong problem-solving skills and a drive to learn new things. I have advanced knowledge in programming and web development. I am constantly looking to improve myself while growing in the computer science and technology fields.</h6>
           <div className="row text-center">
               <div className="col-md">
-              <div className="text-center">
-                    <a className="text-decoration-none text-danger" href={resume}> 
-                    <h5>VIEW MY RESUME</h5>
-                    </a>
-                </div>
                   <div className="d-flex">
                       <h5>POSITION: </h5> 
                       <span>&nbsp;Freelance</span>
