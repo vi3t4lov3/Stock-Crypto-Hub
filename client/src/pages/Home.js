@@ -4,8 +4,8 @@ import NavBar from '../components/Navbar/Navbar'
 import About from '../components/About'
 import Project from '../components/Projects'
 import Contact from '../components/Contact'
+import HomePage from '../components/HomePage/HomePage'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import FontPage from '../components/HomePage/HomePage'
 
 const Home = () => {
 
@@ -15,7 +15,7 @@ const Home = () => {
           <NavBar/>
 
           <Routes>
-            <Route path='/' element={<FontPage />}>
+            <Route path='/' element={<HomePage />}>
             </Route>
             <Route path='/about' element={<About />}>
             </Route>

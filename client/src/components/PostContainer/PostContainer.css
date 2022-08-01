@@ -1,0 +1,11 @@
+.PostContainer {
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: clip;
+    background: var(--cardColor);
+    flex: 2;
+    margin-top: 0.5em;
+    /* padding: 15px; */
+}
