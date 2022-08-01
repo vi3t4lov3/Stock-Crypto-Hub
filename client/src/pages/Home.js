@@ -2,7 +2,6 @@ import React from 'react'
 import Footer from '../components/Footer/Footer'
 import NavBar from '../components/Navbar/Navbar'
 import About from '../components/About'
-import Project from '../components/Projects'
 import Contact from '../components/Contact'
 import HomePage from '../components/HomePage/HomePage'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -19,8 +18,8 @@ const Home = () => {
             </Route>
             <Route path='/about' element={<About />}>
             </Route>
-            <Route path='/project' element={<Project />}>
-            </Route>
+            {/* <Route path='/project' element={<Project />}>
+            </Route> */}
  
             <Route path='/contact' element={<Contact />}>
             </Route>
