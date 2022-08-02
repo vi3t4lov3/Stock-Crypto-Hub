@@ -6,6 +6,7 @@ import Contact from '../components/Contact'
 import HomePage from '../components/HomePage/HomePage'
 import Profile from '../components/Profile/Profile'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Auth from '../components/Auth/Auth'
 
 const Home = () => {
 
@@ -21,7 +22,8 @@ const Home = () => {
             </Route>
             <Route path='/profile' element={<Profile />}>
             </Route>
- 
+            <Route path='/auth' element={<Auth />}>
+            </Route>
             <Route path='/contact' element={<Contact />}>
             </Route>
           </Routes>
