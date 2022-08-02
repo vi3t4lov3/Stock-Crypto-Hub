@@ -8,6 +8,7 @@ export const PostsData = [
         img: img1,
         name: 'Tu Nguyen',
         desc: "Hellow World",
+        date: "10/25/2022",
         likes: 1000,
         liked: true
     },
@@ -15,6 +16,7 @@ export const PostsData = [
         img: img2,
         name: 'Trang Hoang',
         desc: "Party time :)",
+        date: "10/25/2022",
         likes: 100,
         liked: false
 
@@ -23,6 +25,7 @@ export const PostsData = [
         img:img3,
         name: "Will Nguyen",
         desc: "cool",
+        date: "10/25/2022",
         likes: 200,
         liked: false
     }

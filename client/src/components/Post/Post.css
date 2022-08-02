@@ -17,6 +17,6 @@
 
 .postReact{
     display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
+    justify-content: flex-end;
+    gap: 0.2rem;
 }

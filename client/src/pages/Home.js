@@ -4,6 +4,7 @@ import NavBar from '../components/Navbar/Navbar'
 import About from '../components/About'
 import Contact from '../components/Contact'
 import HomePage from '../components/HomePage/HomePage'
+import Profile from '../components/Profile/Profile'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const Home = () => {
@@ -18,8 +19,8 @@ const Home = () => {
             </Route>
             <Route path='/about' element={<About />}>
             </Route>
-            {/* <Route path='/project' element={<Project />}>
-            </Route> */}
+            <Route path='/profile' element={<Profile />}>
+            </Route>
  
             <Route path='/contact' element={<Contact />}>
             </Route>

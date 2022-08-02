@@ -1,8 +1,8 @@
 import React from 'react'
-
-import Cover from "../assets/img/cover.jpg";
-import Profile from "../assets/img/profileImg.jpg";
-import "../assets/css/ProfileCard.css"
+import Cover from "../../assets/img/cover.jpg";
+import Profile from "../../assets/img/profileImg.jpg";
+import EditProfileModal from '../Modal/EditProfileModal';
+import "./ProfileCard.css"
 const ProfileCard = () => {
   const ProfilePage = true;
   return (
@@ -13,8 +13,7 @@ const ProfileCard = () => {
       </div>
 
       <div className="ProfileName">
-        {/* <span>Tu Nguyen (Will)</span> */}
-        <span>Full Stack Development</span>
+        <span>Your Name</span>
       </div>
       <div className="followStatus">
         <hr />
@@ -86,6 +85,7 @@ const ProfileCard = () => {
                     
           </div>
       </div>
+      <EditProfileModal/>
     </div>
   )
 }

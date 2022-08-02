@@ -1,4 +1,5 @@
 :root {
+    --bg: #f3f3f3;
     --blue: #4183C4;
     --yellow: #f5c32c;
     --orange: #fca61f;
@@ -22,4 +23,16 @@
     display: flex;
     flex-direction: column;
     font-size: 15px;
+    }
+
+
+.App {
+      overflow: hidden;
+      color: var(--black);
+      background: var(--bg);
+      padding: 1rem 1rem;
+    }    
+
+    ::-webkit-scrollbar{
+      display: none;
     }
