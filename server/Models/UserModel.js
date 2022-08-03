@@ -41,8 +41,17 @@ const UserSchema = mongoose.Schema(
         followers: [] ,
         following: []
     },
-    {timestamps: true}
+    {timestamps: true,
+    }
 )
+// function formatDate(date) {
+//     const stringDate = date.toLocaleString(undefined, {
+//       year: "numeric",
+//       month: "long",
+//       day: "numeric",
+//     });
+//     return stringDate;
+//   }
 
 const UserModel= mongoose.model("Users", UserSchema);
 export default UserModel
