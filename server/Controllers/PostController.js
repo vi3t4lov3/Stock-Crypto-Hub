@@ -148,9 +148,10 @@ export const deleteComment = async (req, res)  => {
   const { userId } = req.body;
 
   try {
-    const comment = await PostModel.findOneAndUpdate({postId});
-    console.log(comment);
-    console.log(comment.userId);
+    const post = await PostModel.findById(postId);
+    // const id = new mongoose.Types.ObjectId(_id)
+    console.log(post);
+    console.log(`${post.comment}`);
     if (comment.userId === userId) {
       await post.updateOne({ $pull: { comment: req.body } });
       res.status(200).json("Comment deleted successfully");

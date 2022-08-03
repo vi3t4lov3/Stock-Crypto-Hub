@@ -22,12 +22,12 @@ const commentSchema = mongoose.Schema(
   {
     timestamps: true,
   },
-  // this will add "id" same with "_id"
-  // {
-  //   toJSON: {
-  //     getters: true,
-  //   },
-  // }
+  // this will add an "id" same with "_id"
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
 );
 
 function formatDate(date) {
