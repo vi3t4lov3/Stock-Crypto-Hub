@@ -4,8 +4,15 @@ const postSchema = mongoose.Schema(
   {
     userId: { 
         type: String, 
-        required: true },
-    desc: String,
+        required: true
+     },
+     title: { 
+        type: String
+     },
+     body: { 
+        type: String, 
+        required: true
+     },
     likes: [],
     image: String,
   },

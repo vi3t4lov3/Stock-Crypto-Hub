@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import validator from 'validator';
+
 
 const UserSchema = mongoose.Schema(
     {
@@ -38,7 +38,7 @@ const UserSchema = mongoose.Schema(
         livesin: String,
         worksAt: String,
         level: Number,
-        followers: [] ,
+        followers: [],
         following: []
     },
     {timestamps: true,
