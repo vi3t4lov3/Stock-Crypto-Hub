@@ -126,3 +126,54 @@ export const getGroupPostByUserId = async (req, res) => {
   catch (error) { res.status(500).json({error: error.message});
   }
 };
+
+
+// add Add Comment to the post
+export const addComment = async (req, res)  => {
+  const postId = req.params.id;
+  try {
+    const post = await PostModel.findById(postId);
+    if (post) {
+      await post.updateOne({ $push: { comment: req.body } });
+      res.status(200).json(post);
+    }
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+}
+// add deleteComment to the post
+export const deleteComment = async (req, res)  => {
+  const postId = req.params.id;
+
+  const { userId } = req.body;
+
+  try {
+    const comment = await PostModel.findOneAndUpdate({postId});
+    console.log(comment);
+    console.log(comment.userId);
+    if (comment.userId === userId) {
+      await post.updateOne({ $pull: { comment: req.body } });
+      res.status(200).json("Comment deleted successfully");
+    } else {
+      res.status(403).json("Action forbidden! You are not the author of this comment");
+    }
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+}
+
+// const postId = req.params.id;
+//   const { userId } = req.body;
+
+//   try {
+//     const post = await PostModel.findById(postId);
+//     if (!post.likes.includes(userId)) {
+//       await post.updateOne({ $push: { likes: userId } });
+//       res.status(200).json("Liked");
+//     } else {
+//       await post.updateOne({ $pull: { likes: userId } });
+//       res.status(200).json("Unliked");
+//     }
+//   } catch (error) {
+//     res.status(500).json({error: error.message});
+//   }

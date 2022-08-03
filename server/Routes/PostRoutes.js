@@ -5,7 +5,10 @@ import { createPost,
     getPost,
     getGroupPostByUserId,
     likePost,
-    updatePost } from "../Controllers/PostController.js";
+    updatePost,
+    deleteComment,
+    addComment
+        } from "../Controllers/PostController.js";
 const router = express.Router()
 
 router.post('/', createPost)
@@ -15,4 +18,6 @@ router.put('/:id', updatePost)
 router.delete("/:id", deletePost)
 router.put("/:id/like", likePost)
 router.get("/:id/search", getGroupPostByUserId)
+router.delete('/:postID/comment/:id', deleteComment);
+router.post("/:id/comment", addComment)
 export default router;
