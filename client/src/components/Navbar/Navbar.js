@@ -14,7 +14,7 @@ const NavBar = (props) => {
       <div className="Navbar">
           <div className="nav-logo"> 
           <Link to='/'>
-            <h1><Icon name='home' size='large' /> Smart Investment</h1>
+            <h1><Icon name='home' size='large' /> SC Hub</h1>
           </Link>
           </div>
           <div className="nav-right">
