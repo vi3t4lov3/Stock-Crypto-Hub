@@ -1,6 +1,7 @@
 import express from "express";
 import { 
     registerUser,
+    loginUser,
     getAllUser,
     getUser,
     updateUser,
@@ -10,7 +11,8 @@ import {
 
 const router = express.Router();
 
-router.post('/', registerUser)
+router.post('/register', registerUser)
+router.get('/login', loginUser)
 router.get('/', getAllUser)
 router.get('/:id', getUser)
 router.put('/:id', updateUser)

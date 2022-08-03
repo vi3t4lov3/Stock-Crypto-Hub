@@ -8,13 +8,26 @@ export const registerUser = async (req, res) => {
   const { username, email, password, firstname, lastname } = req.body;
   const emailExists = await UserModel.findOne({email})
   const usernameExists = await UserModel.findOne({username})
-  if (emailExists || usernameExists ) {
-    res.status(500).json({ message: "Email or Username already in use" });
+  
+  if (usernameExists ) {
+    res.status(500).json({ message: "Username already in use" });
+    return;
+  }
+  if (emailExists) {
+    res.status(500).json({ message: "Email already in use" });
     return;
   }
   //validation
-  if(!username || !email || !password) {
-    res.status(500).json({ message: "All field must be filled" });
+  if(!email) {
+    res.status(500).json({ message: "Please enter your email" });
+    return;
+  }
+  if(!username) {
+    res.status(500).json({ message: "Please enter your username" });
+    return;
+  }
+  if(!password) {
+    res.status(500).json({ message: "Please enter your password" });
     return;
   }
   if (!validator.isEmail(email)){
@@ -42,6 +55,32 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// login User
+export const loginUser = async (req, res) => {
+  const {username, password} = req.body
+  if(!username) {
+    res.status(500).json({ message: "Please enter your username" });
+    return;
+  }
+  if(!password) {
+    res.status(500).json({ message: "Please enter your password" });
+    return;
+  }
+  try {
+      const user = await UserModel.findOne({username})
+      if(user)
+      {
+          const checkPassword = await bcrypt.compare(password, user.password)
+          checkPassword? res.status(200).json(user): res.status(400).json("Wrong Password")
+      }
+      else{
+          res.status(404).json("User does not exists")
+      }
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+}
+
 // get all Users
 export const getAllUser = async (req, res) => {
   try {
