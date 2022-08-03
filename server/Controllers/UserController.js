@@ -1,6 +1,7 @@
 import UserModel from "../Models/userModel.js";
 import bcrypt from "bcrypt";
 import validator from "validator"
+import mongoose from "mongoose";
 
 // Registering a Add new User
 export const registerUser = async (req, res) => {
@@ -12,7 +13,7 @@ export const registerUser = async (req, res) => {
     return;
   }
   //validation
-  if(!email || !password) {
+  if(!username || !email || !password) {
     res.status(500).json({ message: "All field must be filled" });
     return;
   }
@@ -44,11 +45,11 @@ export const registerUser = async (req, res) => {
 // get all Users
 export const getAllUser = async (req, res) => {
   try {
-    const user = await UserModel.findAll()
+    const user = await UserModel.find({}).sort({createdAt: -1})
     if (user) {
       res.status(200).json(user)
     } else {
-      res.status(404).json("No such user exists");
+      res.status(404).json("No such user exists with this id");
     }
   } catch (error) {
     res.status(500).json(error);
@@ -57,13 +58,15 @@ export const getAllUser = async (req, res) => {
 // get a User
 export const getUser = async (req, res) => {
   const id = req.params.id;
+  //this will check if you enter id not same with MongoDB id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({message: `no id found, id you enter is not mogoDB ID`})
+}
   try {
     const user = await UserModel.findById(id);
-
     if (user) {
-      const { password, ...otherDetails } = user._doc;
-
-      res.status(200).json(otherDetails);
+      const { password, ...hidenpass } = user._doc;
+      res.status(200).json(hidenpass);
     } else {
       res.status(404).json("No such user exists");
     }
