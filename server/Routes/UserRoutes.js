@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 router.post('/register', registerUser)
-router.get('/login', loginUser)
+router.post('/login', loginUser)
 router.get('/', getAllUser)
 router.get('/:id', getUser)
 router.put('/:id', updateUser)

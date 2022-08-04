@@ -2,7 +2,10 @@ import UserModel from "../Models/UserModel.js";
 import bcrypt from "bcrypt";
 import validator from "validator"
 import mongoose from "mongoose";
-
+import jwt from "jsonwebtoken";
+const createToken = (_id) => {
+  return jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h' })
+}
 // Registering a Add new User
 export const registerUser = async (req, res) => {
   const { username, email, password, firstname, lastname } = req.body;
@@ -49,8 +52,11 @@ export const registerUser = async (req, res) => {
     lastname,
   });
   try {
-    await newUser.save();
-    res.status(200).json(newUser);
+    const user = await newUser.save();
+    //create token
+    const token = createToken(user._id)
+    // console.log(token);
+    res.status(200).json({newUser, token});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -68,13 +74,19 @@ export const loginUser = async (req, res) => {
   }
   try {
       const user = await UserModel.findOne({username})
+
       if(user)
       {
           const checkPassword = await bcrypt.compare(password, user.password)
-          checkPassword? res.status(200).json(user): res.status(400).json("Wrong Password")
+          if (checkPassword) {
+            const token = createToken(user._id)
+            res.status(200).json({username, token})
+          }
+          else 
+          res.status(400).json("Wrong Password")
       }
       else{
-          res.status(404).json("User does not exists")
+          res.status(404).json("Incorrect username")
       }
   } catch (error) {
       res.status(500).json({ message: error.message });
