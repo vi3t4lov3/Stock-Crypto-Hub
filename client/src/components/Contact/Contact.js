@@ -1,6 +1,6 @@
 import React, { useState }  from 'react'
-import {validateEmail } from '../../src/utils/helpers';
-import '../assets/css/Contact.css'
+import {validateEmail } from '../../utils/helpers';
+import './Contact.css';
 
 const Contact = () => {
       // Create state variables for the fields in the form

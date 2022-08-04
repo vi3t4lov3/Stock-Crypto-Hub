@@ -1,8 +1,8 @@
 import React from 'react'
 import Footer from '../components/Footer/Footer'
 import NavBar from '../components/Navbar/Navbar'
-import About from '../components/About'
-import Contact from '../components/Contact'
+import About from '../components/AboutUs/AboutUs'
+import Contact from '../components/Contact/Contact'
 import HomePage from '../components/HomePage/HomePage'
 import Profile from '../components/Profile/Profile'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

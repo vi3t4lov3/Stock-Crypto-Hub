@@ -5,7 +5,7 @@ const Auth = () => {
   const [isRegister, setIsRegister] = useState(true);
   const [confirmPass, setConfirmPass] = useState(false);
   
-  const inputState = {firstname: '', lastname: '', username: '', email: '',username: '', password: '',confirmpass: ''}; 
+  const inputState = {firstname: '', lastname: '', username: '', email: '', password: '',confirmpass: ''}; 
 
   const [data, setData] = useState(inputState);
   // Handle Change in input
