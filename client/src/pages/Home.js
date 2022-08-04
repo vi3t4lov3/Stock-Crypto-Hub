@@ -22,7 +22,7 @@ const Home = () => {
             </Route>
             <Route path='/profile' element={<Profile />}>
             </Route>
-            <Route path='/auth' element={<Auth />}>
+            <Route path='/login' element={<Auth />}>
             </Route>
             <Route path='/contact' element={<Contact />}>
             </Route>

@@ -1,52 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Auth.css";
+
 const Auth = () => {
+  const [isRegister, setIsRegister] = useState(false);
+  const inputState = {firstname: '', lastname: '', username: '', email: '',username: '', password: '',confirmpass: ''}; 
+
+  const [data, setData] = useState(inputState);
+  
   return (
     <div className="Auth">
-      <LogIn/>
-    </div>
-  );
-};
-function LogIn() {
-    return (
-      <>
-        <form className="infoForm authForm">
-          <h3>Log In</h3>
-  
-          <div>
-            <input
-              type="text"
-              placeholder="Username"
-              className="infoInput"
-              name="username"
-            />
-          </div>
-  
-          <div>
-            <input
-              type="password"
-              className="infoInput"
-              placeholder="Password"
-              name="password"
-            />
-          </div>
-  
-          <div>
-              <span style={{ fontSize: "12px" }}>
-                Don't have an account Sign up
-              </span>
-            <button className="button infoButton">Login</button>
-          </div>
-        </form>
-      </>
-    );
-  }
-function SignUp() {
-  return (
-    <div className="a-right">
       <form className="infoForm authForm">
-        <h3>Sign up</h3>
-
+      <h2> {isRegister ? "Sign up" : "Login"}</h2>
+        
+      {isRegister && (
         <div>
           <input
             type="text"
@@ -61,16 +27,27 @@ function SignUp() {
             name="lastname"
           />
         </div>
+      )}
+        
 
         <div>
           <input
             type="text"
             className="infoInput"
             name="username"
-            placeholder="Usernames"
+            placeholder="Username"
           />
         </div>
-
+        {isRegister && (
+        <div>
+          <input
+            type="text"
+            placeholder="Email"
+            className="infoInput"
+            name="email"
+          />
+        </div>
+      )}
         <div>
           <input
             type="text"
@@ -78,16 +55,31 @@ function SignUp() {
             name="password"
             placeholder="Password"
           />
+          {isRegister && (
           <input
             type="text"
             className="infoInput"
             name="confirmpass"
             placeholder="Confirm Password"
           />
+          )}
         </div>
 
         <div>
-            <span style={{fontSize: '12px'}}>Already have an account. Login!</span>
+        <span
+              style={{
+                fontSize: "12px",
+                cursor: "pointer",
+                textDecoration: "underline",
+              }}
+              onClick={() => {
+                setIsRegister((prev) => !prev);
+              }}
+            >
+              {isRegister
+                ? "Already have an account Login"
+                : "Don't have an account Sign up"}
+            </span>
         </div>
         <button className="button infoButton" type="submit">Signup</button>
       </form>
