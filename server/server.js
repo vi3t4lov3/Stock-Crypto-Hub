@@ -11,7 +11,7 @@ dotenv.config();
 app.use(express.json())
 
 //routes
-app.use('/api/users', userRoute)
+app.use('/api/user', userRoute)
 app.use('/api/posts', postRoute)
 
 

@@ -3,34 +3,28 @@ import "./Auth.css";
 import {useRegister} from "../../Hooks/useRegister"
 const Auth = () => {
   const [isRegister, setIsRegister] = useState(true);
-  const [confirmPass, setConfirmPass] = useState(true);
-  const [firstname, setFirstName] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-
-  // const inputState = {firstname: '', lastname: '', username: '', email: '', password: '',confirmpass: ''}; 
+  const [confirmPass, setConfirmPass] = useState(false);
+  
+  const inputState = {firstname: '', lastname: '', username: '', email: '', password: '',confirmpass: ''}; 
   const {register, error, isLoading} = useRegister()
-  // const [data, setData] = useState(44inputState);
+  const [data, setData] = useState(inputState);
   // Handle Change in input
-  // const handleChange = (e) => {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // };
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userData = await register(firstname, lastname, email,  username, password)
-    console.log(userData);
-    if (password === confirmPass) {
-      setConfirmPass(false);
+    await register(inputState)
+    if (data.password !== data.confirmpass) {
+      setConfirmPass(true);
     }
-    // else {
+    else {
 
-    // }
+    }
   }
   const resetForm = () => {
-    // setData(inputState);
-    // setConfirmPass(confirmPass);
+    setData(inputState);
+    setConfirmPass(confirmPass);
   };
   return (
     <div className="Auth">
@@ -44,19 +38,18 @@ const Auth = () => {
             placeholder="First Name"
             className="infoInput"
             name="firstname"
-            value={firstname}
-            // onChange={handleChange}
+            value={data.firstname}
+            onChange={handleChange}
             // required
-            onChange={(e) => setFirstName(e.target.value)}
+            // onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="Last Name"
             className="infoInput"
             name="lastname"
-            value={lastname}
-            // onChange={handleChange}
-            onChange={(e) => setLastname(e.target.value)}
+            value={data.lastname}
+            onChange={handleChange}
             // required
           />
         </div>
@@ -69,9 +62,8 @@ const Auth = () => {
             className="infoInput"
             name="username"
             placeholder="Username"
-            value={username}
-            // onChange={handleChange}
-            onChange={(e) => setUsername(e.target.value)}
+            value={data.username}
+            onChange={handleChange}
             // required
           />
         </div>
@@ -82,9 +74,8 @@ const Auth = () => {
             placeholder="Email"
             className="infoInput"
             name="email"
-            value={email}
-            // onChange={handleChange}
-            onChange={(e) => setEmail(e.target.value)}
+            value={data.email}
+            onChange={handleChange}
             // required
           />
         </div>
@@ -95,10 +86,9 @@ const Auth = () => {
             className="infoInput"
             name="password"
             placeholder="Password"
-            value={password}
-            // onChange={handleChange}
-            onChange={(e) => setPassword(e.target.value)}
-            // required
+            value={data.password}
+            onChange={handleChange}
+            required
           />
           {isRegister && (
           <input
@@ -106,9 +96,8 @@ const Auth = () => {
             className="infoInput"
             name="confirmpass"
             placeholder="Confirm Password"
-            // onChange={handleChange}
-            onChange={(e) => setConfirmPass(e.target.value)}
-            // required
+            onChange={handleChange}
+            required
           />
           )}
         </div>
