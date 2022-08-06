@@ -1,36 +1,43 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import {useRegister} from "../../Hooks/useRegister"
+import {useLogin} from "../../Hooks/useLogin"
 const Auth = () => {
-  const [isRegister, setIsRegister] = useState(true);
-  const [confirmPass, setConfirmPass] = useState(true);
+  const [isRegister, setIsRegister] = useState(false);
+  const [confirmPass, setConfirmPass] = useState('');
   const [firstname, setFirstName] = useState('')
-  const [lastname, setLastname] = useState('')
-  const [username, setUsername] = useState('')
+  const [lastname, setLastName] = useState('')
+  const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
   // const inputState = {firstname: '', lastname: '', username: '', email: '', password: '',confirmpass: ''}; 
   const {register, error, isLoading} = useRegister()
+  const {login} = useLogin()
   // const [data, setData] = useState(44inputState);
   // Handle Change in input
   // const handleChange = (e) => {
   //   setData({ ...data, [e.target.name]: e.target.value });
   // };
   const handleSubmit = async (e) => {
+    // setConfirmPass(false);
     e.preventDefault();
-    const userData = await register(firstname, lastname, email,  username, password)
-    console.log(userData);
-    if (password === confirmPass) {
-      setConfirmPass(false);
+    if (isRegister) {
+      await register(firstname, lastname, email,  username, password)
+      if (password === confirmPass) {
+        setConfirmPass(false);
+      }
+    } else {
+      await login(username, password)
     }
-    // else {
-
-    // }
   }
   const resetForm = () => {
-    // setData(inputState);
-    // setConfirmPass(confirmPass);
+    setFirstName(firstname)
+    setLastName(lastname)
+    setUserName(username)
+    setEmail(email)
+    setPassword(password)
+    setConfirmPass(confirmPass);
   };
   return (
     <div className="Auth">
@@ -56,7 +63,7 @@ const Auth = () => {
             name="lastname"
             value={lastname}
             // onChange={handleChange}
-            onChange={(e) => setLastname(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             // required
           />
         </div>
@@ -71,7 +78,7 @@ const Auth = () => {
             placeholder="Username"
             value={username}
             // onChange={handleChange}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUserName(e.target.value)}
             // required
           />
         </div>
@@ -110,9 +117,11 @@ const Auth = () => {
             onChange={(e) => setConfirmPass(e.target.value)}
             // required
           />
+          
           )}
         </div>
-        {confirmPass ? (<span className="confirmPass">*Confirm password is not match</span>) : null}
+        
+        {isRegister && (confirmPass !== password) ? (<span className="confirmPass">*Confirm password is not match</span>) : null}
         
         <div>
         <span

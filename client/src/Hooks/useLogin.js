@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 
-export const useRegister = () => {
+export const useLogin = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
   const { dispatch } = useAuthContext()
 
-  const register = async (firstname, lastname, email,  username, password) => {
+  const login = async (username, password) => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('/api/user/register', {
+    const response = await fetch('/api/user/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ firstname, lastname, email,  username, password})
+      body: JSON.stringify({ username, password })
     })
     const userData = await response.json()
 
@@ -26,12 +26,12 @@ export const useRegister = () => {
       localStorage.setItem('user', JSON.stringify(userData))
 
       // update the auth context
-      dispatch({type: 'REGISTER', payload: userData})
+      dispatch({type: 'LOGIN', payload: userData})
 
       // update loading state
       setIsLoading(false)
     }
   }
 
-  return { register, isLoading, error }
+  return { login, isLoading, error }
 }
