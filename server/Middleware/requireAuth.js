@@ -1,21 +1,27 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import User from "../Models/UserModel.js";
 
-dotenv.config();
-const secret = process.env.SECRET;
-const authMiddleWare = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    console.log(token)
-    if (token) {
-      const decoded = jwt.verify(token, secret);
-      console.log(decoded)
-      req.body._id = decoded?.id;
-    }
-    next();
-  } catch (error) {
-    console.log(error);
+
+const requireAuth = async (req, res, next) => {
+  // verify user is authenticated
+  const { authorization } = req.headers
+
+  if (!authorization) {
+    return res.status(401).json({error: 'Authorization token required'})
   }
-};
 
-export default authMiddleWare;
+  const token = authorization.split(' ')[1]
+
+  try {
+    const { _id } = jwt.verify(token, process.env.SECRET)
+
+    req.user = await User.findOne({ _id }).select('_id')
+    next()
+
+  } catch (error) {
+    console.log(error)
+    res.status(401).json({error: 'Request is not authorized'})
+  }
+}
+
+export default requireAuth;
