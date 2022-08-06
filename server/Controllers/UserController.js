@@ -33,14 +33,14 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Please enter your password" });
     return;
   }
-  if (!validator.isEmail(email)){
-    res.status(500).json({ message: "Email is not valid" });
-    return;
-  }
-  if (!validator.isStrongPassword(password)) {
-    res.status(500).json({ message: "Password not strong enough" });
-    return;
-  }
+  // if (!validator.isEmail(email)){
+  //   res.status(500).json({ message: "Email is not valid" });
+  //   return;
+  // }
+  // if (!validator.isStrongPassword(password)) {
+  //   res.status(500).json({ message: "Password not strong enough" });
+  //   return;
+  // }
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(password, salt);
 
@@ -80,7 +80,7 @@ export const loginUser = async (req, res) => {
           const checkPassword = await bcrypt.compare(password, user.password)
           if (checkPassword) {
             const token = createToken(user._id)
-            res.status(200).json({username, token})
+            res.status(200).json({user, token})
           }
           else 
           res.status(400).json("Wrong Password")

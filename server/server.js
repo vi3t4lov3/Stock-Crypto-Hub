@@ -3,12 +3,14 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from './Routes/UserRoutes.js'
 import postRoute from './Routes/PostRoutes.js'
+// import cors from 'cors';
 // express app
 const app = express();
 
 //middleware
 dotenv.config();
 app.use(express.json())
+// app.use(cors())
 
 //routes
 app.use('/api/user', userRoute)

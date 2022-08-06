@@ -1,4 +1,5 @@
 import express from "express";
+
 import { createPost,
     deletePost,
     getAllPosts,
@@ -9,7 +10,12 @@ import { createPost,
     deleteComment,
     addComment
         } from "../Controllers/PostController.js";
+import requireAuth from '../Middleware/requireAuth.js'
 const router = express.Router()
+
+// require auth for all workout routes
+router.use(requireAuth)
+
 
 router.post('/', createPost)
 router.get('/:id', getPost)
