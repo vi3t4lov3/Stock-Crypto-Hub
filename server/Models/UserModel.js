@@ -32,8 +32,18 @@ const UserSchema = mongoose.Schema(
             type: Boolean,
             default: false,
         },
-        profilePicture: String,
-        coverPicture: String,
+        role: {
+            type: Number,
+            default: 0 //0 for member ,1 for Admin, 2 for mod, 3 for alert
+        },
+        profilePicture: {
+            type: String,
+            default: "../../client/src/assets/img/profile.png"
+        },
+        coverPicture: {
+            type: String,
+            default: "../../client/src/assets/img/avatar.png"
+        },
         about: String,
         livesin: String,
         worksAt: String,

@@ -1,11 +1,12 @@
+import {authAdmin} from "../Middleware/reqiureRole.js"
 import express from "express";
-
 import { 
     registerUser,
     loginUser,
     getAllUser,
     getUser,
     updateUser,
+    updateRole,
     deleteUser, 
     followUser,
     unFollowUser } from "../Controllers/UserController.js";
@@ -16,6 +17,7 @@ router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/', getAllUser)
 router.get('/:id', getUser)
+router.get('/role/:id',authAdmin, updateRole)
 router.put('/:id', updateUser)
 router.delete('/:id', deleteUser)
 router.put('/:id/follow', followUser)

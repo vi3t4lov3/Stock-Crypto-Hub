@@ -150,6 +150,22 @@ export const updateUser = async (req, res) => {
   }
 };
 
+// update a role
+export const updateRole = async (req, res) => {
+  try {
+      const {role} = req.body
+
+      await Users.findOneAndUpdate({_id: req.params.id}, {
+          role
+      })
+
+      res.json({msg: "Update Success!"})
+  } catch (err) {
+      return res.status(500).json({msg: err.message})
+  }
+}
+
+
 // Delete user
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
