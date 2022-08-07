@@ -18,14 +18,6 @@
     --unlikedheart: #
   }
 
-/* Home CSS */
-.Home {
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    }
-
-
 .App {
       overflow: hidden;
       color: var(--black);
@@ -36,3 +28,19 @@
     ::-webkit-scrollbar{
       display: none;
     }
+
+  /* Home CSS */
+.Home {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  }
+
+@media screen and (max-width: 768px) {
+  .Home {
+  flex-direction: column;
+  align-self: center;
+  }
+}

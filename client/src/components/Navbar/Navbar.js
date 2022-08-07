@@ -36,8 +36,7 @@ const NavBar = (props) => {
               )}
               {!user && (
                 <>
-                   <Link to='/login'><li>Login</li> </Link>
-              <Link to='/register'><li>Register</li> </Link>
+                   <Link to='/login'><li>Login/Register</li> </Link>
                 </>
                
               )}

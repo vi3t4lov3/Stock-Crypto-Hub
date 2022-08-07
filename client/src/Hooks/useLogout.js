@@ -8,6 +8,7 @@ export const useLogout = () => {
   const logout = () => {
     // remove user from storage
     localStorage.removeItem('user')
+    window.location.href = "/";
 
     // dispatch logout action
     dispatch({ type: 'LOGOUT' })
