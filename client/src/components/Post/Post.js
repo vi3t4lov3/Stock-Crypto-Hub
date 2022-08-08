@@ -1,27 +1,32 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './Post.css'
 import { Button } from 'semantic-ui-react'
 
 
-const Post = ({posts}) => {
+const Post = ({posts, handleDelete}) => {
+  
   return ( 
     <>
     {posts.map((post) => (
     <div className="Post">
       
-       <div className="detail">
-        <h3>{post.title}</h3>
-        <p> {post.body} {post.image}</p>
+       <div className="detail" key={post._id}>
+        <h3>{post.title} </h3>
+        <p> {post.body}</p>
+        {post.url && 
+        <p>Click <Link to={post.url}>here </Link>to view{post.url}</p>
+        }
         </div>
         <img src={post.image ?  "/uploads/" + post.image : "" }
         alt="" />
         <div className="postReact">
-          {post.liked ?  
+          {post.like> 0 ?  
             <Button
               color='red'
               icon='heart'
               size='mini'
-              label={{ basic: true, color: 'red', pointing: 'left', content: post.likes}}
+              label={{ basic: true, color: 'red', pointing: 'left', content: post.likes }}
             />    :  
             <Button
             content='Like'
@@ -33,7 +38,7 @@ const Post = ({posts}) => {
             content='Comment'
             size='mini'
             icon='comment outline'
-            label={{ basic: true, pointing: 'left', content: post.likes}}
+            label={{ basic: true, pointing: 'left', content: post.comment}}
           />
           <Button
             content='Share'
@@ -43,7 +48,14 @@ const Post = ({posts}) => {
           />
           <Button 
             disabled 
-            size='mini'>{posts.date}</Button>
+            size='mini'>{post.createdAt}</Button>
+            <Button
+            content='Readed'
+            size='mini'
+            icon='book'
+            
+            onClick={() => handleDelete(post._id)}
+          />
         </div>
         </div>
         ))} 

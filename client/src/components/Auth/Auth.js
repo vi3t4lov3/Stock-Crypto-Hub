@@ -10,15 +10,8 @@ const Auth = () => {
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-
-  // const inputState = {firstname: '', lastname: '', username: '', email: '', password: '',confirmpass: ''}; 
   const {register, error, isLoading} = useRegister()
   const {login} = useLogin()
-  // const [data, setData] = useState(44inputState);
-  // Handle Change in input
-  // const handleChange = (e) => {
-  //   setData({ ...data, [e.target.name]: e.target.value });
-  // };
   const handleSubmit = async (e) => {
     // setConfirmPass(false);
     e.preventDefault();
@@ -52,7 +45,6 @@ const Auth = () => {
             className="infoInput"
             name="firstname"
             value={firstname}
-            // onChange={handleChange}
             // required
             onChange={(e) => setFirstName(e.target.value)}
           />
@@ -62,7 +54,6 @@ const Auth = () => {
             className="infoInput"
             name="lastname"
             value={lastname}
-            // onChange={handleChange}
             onChange={(e) => setLastName(e.target.value)}
             // required
           />
@@ -77,7 +68,6 @@ const Auth = () => {
             name="username"
             placeholder="Username"
             value={username}
-            // onChange={handleChange}
             onChange={(e) => setUserName(e.target.value)}
             // required
           />
@@ -90,7 +80,6 @@ const Auth = () => {
             className="infoInput"
             name="email"
             value={email}
-            // onChange={handleChange}
             onChange={(e) => setEmail(e.target.value)}
             // required
           />
@@ -103,7 +92,6 @@ const Auth = () => {
             name="password"
             placeholder="Password"
             value={password}
-            // onChange={handleChange}
             onChange={(e) => setPassword(e.target.value)}
             // required
           />
@@ -113,7 +101,6 @@ const Auth = () => {
             className="infoInput"
             name="confirmpass"
             placeholder="Confirm Password"
-            // onChange={handleChange}
             onChange={(e) => setConfirmPass(e.target.value)}
             // required
           />

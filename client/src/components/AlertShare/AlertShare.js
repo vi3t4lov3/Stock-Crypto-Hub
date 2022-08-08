@@ -1,12 +1,12 @@
 import React, {useState, useRef} from 'react'
 import Profile from "../../assets/img/profileImg.jpg";
-import "./PostShare.css";
+import "./AlertShare.css";
 import { Icon, Button } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 // import {usePost} from '../../Hooks/usePost'
 import axios from "axios"
 
-const PostShare = () => {
+const AlertShare = () => {
     const {user} = useAuthContext()
     const [title, setTitle] = useState()
     const [body, setBody] = useState()
@@ -22,7 +22,7 @@ const PostShare = () => {
             setImage(img)
         }
     }
-   const urlHandler = () => {
+   const alertHandle = () => {
     setSource(true)
 
    }
@@ -71,7 +71,7 @@ const PostShare = () => {
   return (
     <>
     {user && (
-    <div className="PostShare">
+    <div className="AlertShare">
          <img src={Profile} alt="" />
         <div>
         <input
@@ -102,7 +102,7 @@ const PostShare = () => {
                 <Icon name='images' size='big' style={{ color: "var(--photo)" }}/>
                 Photo
                </div>
-               <div className="otpion" onClick={urlHandler}>
+               <div className="otpion" onClick={alertHandle}>
                 <Icon name='linkify' size='big' style={{ color: "var(--video)" }}/>
                 Source
                </div>
@@ -139,4 +139,4 @@ const PostShare = () => {
   )
 };
 
-export default PostShare
+export default AlertShare

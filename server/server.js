@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from './Routes/UserRoutes.js'
 import postRoute from './Routes/PostRoutes.js'
+import calRoute from './Routes/CalendarRoutes.js'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 
@@ -24,6 +25,7 @@ app.use(cors())
 //routes
 app.use('/api/user', userRoute)
 app.use('/api/posts', postRoute)
+app.use('/api/cal', calRoute)
 
 
 

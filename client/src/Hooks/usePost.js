@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { usePostsContext } from './usePostsContext'
+
 // import axios from "axios"
 export const usePost = () => {
   const [error, setError] = useState(null)

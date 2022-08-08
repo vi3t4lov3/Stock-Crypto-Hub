@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import './Posts.css'
-import { PostsData } from '../../assets/data/post'
+
 import Post from '../Post/Post'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 // import {usePostsContext} from '../../Hooks/usePostsContext'
@@ -10,7 +10,7 @@ const Posts = () => {
   const {user} = useAuthContext()
   const {data: posts, setData, error} = useFetch('/api/posts')
     const handleDelete = (id) => {
-      const newData = posts.filter(post => post.id !== id)
+      const newData = posts.filter(post => post._id !== id)
       setData(newData);
     };
 

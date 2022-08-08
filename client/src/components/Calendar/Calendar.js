@@ -1,27 +1,25 @@
 import React, {useState, useRef} from 'react'
 import Profile from "../../assets/img/profileImg.jpg";
-import "./PostShare.css";
+import "./Calendar.css";
 import { Icon, Button } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 // import {usePost} from '../../Hooks/usePost'
 import axios from "axios"
 
-const PostShare = () => {
+const Calendar = () => {
     const {user} = useAuthContext()
     const [title, setTitle] = useState()
-    const [body, setBody] = useState()
-    const [image, setImage] = useState(null)
+    const [ticker, setTicker] = useState()
+    const [note, setNote] = useState()
+    const [earningDate, setEarningDate] = useState()
+    const [importantDate, setImportantDate] = useState()
+    const [lastMove, setLastMove] = useState()
+    const [estimatedMove, setEstimatedMove] = useState()
     const [error, setError] = useState(null)
     const [url, setUrl] = useState()
     const [source, setSource] = useState(false)
     // const {createPost, error, isLoading} = usePost()
-    const imageRef = useRef()
-    const onImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let img = e.target.files[0];
-            setImage(img)
-        }
-    }
+
    const urlHandler = () => {
     setSource(true)
 
@@ -32,18 +30,10 @@ const PostShare = () => {
             return
           }
         e.preventDefault();
-         // if there is an image with post
-   
+
         const formData = new FormData();
         // console.log(image)
-        if (image) {
-        const newImageName = image.name
-        formData.append('image', image)
-        formData.append('image', newImageName)
-        formData.append('userId', user.user._id)
-        formData.append('body', body)
-        formData.append('title', title)
-        } if (source) {
+        if (source) {
         formData.append('userId', user.user._id)
         formData.append('body', body)
         formData.append('title', title)
@@ -53,7 +43,7 @@ const PostShare = () => {
         formData.append('title', title)
         formData.append('url', url)
         }
-        await axios.post("/api/posts", formData, {
+        await axios.post("/api/cal", formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -71,7 +61,7 @@ const PostShare = () => {
   return (
     <>
     {user && (
-    <div className="PostShare">
+    <div className="Calendar">
          <img src={Profile} alt="" />
         <div>
         <input
@@ -139,4 +129,4 @@ const PostShare = () => {
   )
 };
 
-export default PostShare
+export default Calendar

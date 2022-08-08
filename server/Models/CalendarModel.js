@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Comment from "./CommentModel.js"
 const postSchema = mongoose.Schema(
   {
     userId: { 
@@ -9,14 +8,19 @@ const postSchema = mongoose.Schema(
      title: { 
         type: String
      },
-     body: { 
+     note: { 
+      type: String
+      },
+     ticker: { 
         type: String, 
         required: true
      },
-    likes: [],
-    comment: [Comment],
-    image: String,
+    earningDate: String,
+    importantDate: String,
+    estimatedMove: Number,
+    lastMove: Number,
     url: String,
+    likes: [],
     // createdAt: {
     //   type: Date,
     //   required: true,
@@ -42,5 +46,5 @@ function formatDate(date) {
   });
   return stringDate;
 }
-var PostModel = mongoose.model("Posts", postSchema);
-export default PostModel;
+var CalendarModel = mongoose.model("Calendars", postSchema);
+export default CalendarModel;
