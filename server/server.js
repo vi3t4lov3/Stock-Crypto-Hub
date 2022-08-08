@@ -3,14 +3,23 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from './Routes/UserRoutes.js'
 import postRoute from './Routes/PostRoutes.js'
-// import cors from 'cors';
+import bodyParser from 'body-parser'
+import cors from 'cors';
+
+
 // express app
 const app = express();
 
+// to serve images inside public folder
+app.use(express.static('public')); 
+app.use('/uploads', express.static('uploads'));
+
 //middleware
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 dotenv.config();
 app.use(express.json())
-// app.use(cors())
+app.use(cors())
 
 //routes
 app.use('/api/user', userRoute)

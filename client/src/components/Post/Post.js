@@ -3,32 +3,37 @@ import './Post.css'
 import { Button } from 'semantic-ui-react'
 
 
-const Post = ({data}) => {
-  return (
+const Post = ({posts}) => {
+  return ( 
+    <>
+    {posts.map((post) => (
     <div className="Post">
+      
        <div className="detail">
-            <span> {data.desc}</span>
+        <h3>{post.title}</h3>
+        <p> {post.body} {post.image}</p>
         </div>
-        <img src={data.img} alt="" />
+        <img src={post.image ?  "/uploads/" + post.image : "" }
+        alt="" />
         <div className="postReact">
-          {data.liked ?  
+          {post.liked ?  
             <Button
               color='red'
               icon='heart'
               size='mini'
-              label={{ basic: true, color: 'red', pointing: 'left', content: data.likes}}
+              label={{ basic: true, color: 'red', pointing: 'left', content: post.likes}}
             />    :  
             <Button
             content='Like'
             size='mini'
             icon='heart'
-            label={{ basic: true, pointing: 'left', content: data.likes}}
+            label={{ basic: true, pointing: 'left', content: post.likes}}
           />}
           <Button
             content='Comment'
             size='mini'
             icon='comment outline'
-            label={{ basic: true, pointing: 'left', content: data.likes}}
+            label={{ basic: true, pointing: 'left', content: post.likes}}
           />
           <Button
             content='Share'
@@ -38,9 +43,12 @@ const Post = ({data}) => {
           />
           <Button 
             disabled 
-            size='mini'>{data.date}</Button>
+            size='mini'>{posts.date}</Button>
         </div>
-    </div>
+        </div>
+        ))} 
+    </>
+
   )
 }
 

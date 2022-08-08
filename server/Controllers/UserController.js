@@ -3,6 +3,14 @@ import bcrypt from "bcrypt";
 import validator from "validator"
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
+import cloudinary from "cloudinary";
+import fs from "fs";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_SECRET
+})
 const createToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h' })
 }
@@ -56,7 +64,7 @@ export const registerUser = async (req, res) => {
     //create token
     const token = createToken(user._id)
     // console.log(token);
-    res.status(200).json({newUser, token});
+    res.status(200).json({user, token});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -164,6 +172,31 @@ export const updateRole = async (req, res) => {
       return res.status(500).json({msg: err.message})
   }
 }
+// upload avatar
+export const uploadAvatar = async (req, res) => {
+      try {
+          const file = req.files.file;
+          
+          cloudinary.v2.uploader.upload(file.tempFilePath, {
+              folder: 'profilePicture', width: 150, height: 150, crop: "fill"
+          }, async(err, result) => {
+              if(err) throw err;
+
+              removeTmp(file.tempFilePath)
+
+              res.json({url: result.secure_url})
+          })
+      
+      } catch (err) {
+          return res.status(500).json({msg: err.message})
+      }
+  }
+  const removeTmp = (path) => {
+    fs.unlink(path, err => {
+        if(err) throw err
+    })
+}
+
 
 
 // Delete user

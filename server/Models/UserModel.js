@@ -38,11 +38,11 @@ const UserSchema = mongoose.Schema(
         },
         profilePicture: {
             type: String,
-            default: "../../client/src/assets/img/profile.png"
+            default: "https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png"
         },
         coverPicture: {
             type: String,
-            default: "../../client/src/assets/img/avatar.png"
+            // default: "../../client/src/assets/img/avatar.png"
         },
         about: String,
         livesin: String,

@@ -11,6 +11,7 @@ const PostShare = () => {
     const [title, setTitle] = useState()
     const [body, setBody] = useState()
     const [image, setImage] = useState(null)
+    const [error, setError] = useState(null)
     // const {createPost, error, isLoading} = usePost()
     const imageRef = useRef()
     const onImageChange = (e) => {
@@ -21,39 +22,36 @@ const PostShare = () => {
     }
    
     const handleSubmit = async (e) => {
-
+        if (!user) {
+            setError('You must be logged in')
+            return
+          }
         e.preventDefault();
-
+         // if there is an image with post
+   
         const formData = new FormData();
         // console.log(image)
-        const newImageName = Date.now() + image.name
+        if (image) {
+        const newImageName = image.name
         formData.append('image', image)
         formData.append('image', newImageName)
         formData.append('userId', user.user._id)
         formData.append('body', body)
         formData.append('title', title)
-
-        axios.post("/api/posts", formData, {
+        } else {
+        formData.append('userId', user.user._id)
+        formData.append('body', body)
+        formData.append('title', title)
+        }
+        await axios.post("/api/posts", formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         }).then(_ => {
-            console.log('Image uploaded')
+            // console.log('Image uploaded')
         }).catch(err => {
             console.error(err)
-        }).finally (_ => {
-            console.log('hmmm')
         })
-
-        // fetch('/api/posts', {
-        //     method: 'POST',
-        //     // headers: {
-        //     //   // 'Content-Type': 'application/json',
-        //     //   'Content-Type': 'multipart/form-data'
-        //     // },
-        //     body: formData
-        //   }).catch(err) => console.error(err)
-        // await createPost(formData)
     }
   return (
     <div className="PostShare">

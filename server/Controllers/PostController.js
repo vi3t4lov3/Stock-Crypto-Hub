@@ -2,6 +2,8 @@ import PostModel from "../Models/PostModel.js";
 import mongoose from "mongoose";
 import UserModel from "../Models/UserModel.js";
 
+
+
 // Creat new Post
 export const createPost = async (req, res) => {
     const post = new PostModel(req.body);
@@ -71,6 +73,8 @@ export const deletePost = async (req, res) => {
     res.status(500).json({error: error.message});
   }
 };
+// upload imge
+
 
 // like and dislike a post
 export const likePost = async (req, res) => {
