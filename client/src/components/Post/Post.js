@@ -10,9 +10,9 @@ const Post = ({posts, handleDelete}) => {
   return ( 
     <>
     {posts.map((post) => (
-    <div className="Post">
+    <div className="Post" key={post._id}>
       
-       <div className="detail" key={post._id}>
+       <div className="detail">
         <h3>{post.title} </h3>
         <p> {post.body}</p>
         {post.url && 

@@ -100,7 +100,7 @@ const Calendar = () => {
                 <Icon name='calendar alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
                 Shedule
                </div> */}
-               <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}><Icon name="share"/>Share</Button>
+               <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}>Submit</Button>
             </div>
         </div>
     </div>

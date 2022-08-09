@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import './Earnings.css'
 import Earning from '../Earning/Earning'
 import { useAuthContext } from '../../Hooks/useAuthContext'

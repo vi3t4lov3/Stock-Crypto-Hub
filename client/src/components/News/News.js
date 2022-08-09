@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import './News.css'
-import env from'dotenv'
 import New from '../New/New'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 import useFetch from '../../Hooks/FetchData'

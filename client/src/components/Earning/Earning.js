@@ -1,14 +1,14 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+
 import './Earning.css'
-import { Table, Popup, Card } from 'semantic-ui-react'
+import { Table, Popup } from 'semantic-ui-react'
 import moment from 'moment';
 moment().format();
 const New = ({data}) => {
-  const openInNewTab = url => {
-    // 👇️ setting target to _blank with window.open
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+  // const openInNewTab = url => {
+  //   // 👇️ setting target to _blank with window.open
+  //   window.open(url, '_blank', 'noopener,noreferrer');
+  // };
   return (
   <>
   <div className="New">
