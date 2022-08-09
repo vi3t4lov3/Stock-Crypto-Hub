@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
       callback(null, "../client/public/uploads")
     }, 
     filename: (req, file, callback) => {
-      const id = req.params.id;
+      // const id = req.params.id;
         // console.log(ser_id)
         const fileName = file.originalname
         // const [_, extension] = file.originalname.split('.')

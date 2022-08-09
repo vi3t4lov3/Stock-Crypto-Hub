@@ -7,5 +7,6 @@
     background: var(--cardColor);
     flex: 2;
     margin-top: 0.5em;
+    width: 100%;
     /* padding: 15px; */
 }

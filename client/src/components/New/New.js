@@ -2,7 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './New.css'
 import { Card, Feed } from 'semantic-ui-react'
-
+import moment from 'moment';
+moment().format();
 
 const New = ({data}) => {
   const openInNewTab = url => {
@@ -26,7 +27,7 @@ const New = ({data}) => {
           {/* <Feed.Label image={newData.image_url} /> */}
           <Feed.Content>
           <h4>{newData.title}</h4>
-          <Feed.Date content={newData.date} />
+          <Feed.Date content={ moment(newData.date).format('MMMM Do YYYY, h:mm:ss a')} />
           <Card.Description>
          {newData.text} <a href={newData.news_url} target="_blank" rel="noopener noreferrer">...read more</a>
         </Card.Description>

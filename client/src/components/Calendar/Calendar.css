@@ -1,42 +1,59 @@
-.PostShare{
+.Calendar{
     display: flex;
     gap: 1rem;
     background-color: var(--cardColor);
     padding: 1rem;
     border-radius: 1rem;
 }
-.PostShare>img{
+.Calendar>img{
     border-radius: 50%;
     width: 3rem;
     height: 3rem;
 }
-.PostShare>div{
+.Calendar>div{
     display: flex;
     flex-direction: column;
     width: 90%;
     gap: 1rem;
 }
 
-.PostShare>div>textarea{
+.Calendar>div>textarea{
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 10px;
     font-size: 17px;
+
     border: none;
     outline: none;
 }
-.PostShare>div>input{
+.Calendar>div>input{
     background-color: var(--inputColor);
     border-radius: 10px;
     padding: 10px;
     font-size: 17px;
+
     border: none;
     outline: none;
+}
+.Calendar>div>div>input{
+    background-color: var(--inputColor);
+    border-radius: 10px;
+    /* margin-left: 1em; */
+    padding: 10px;
+    font-size: 17px;
+
+    border: none;
+    outline: none;
+}
+
+.earningPost{ 
+    display: flex;
+    flex-wrap: wrap;
 }
 
 
 /* Option button  */
-.postOption {
+.calenderOption {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -65,7 +82,8 @@
     background-color: var(--buttonBg);
     padding: 5px;
     text-align: center;
-    font-size: 12px
+    font-size: 12px;
+    max-width: 20px;
 }
 
 
@@ -85,4 +103,24 @@
     right: 1rem;
     top: 0.5rem;
     cursor: pointer;
+}
+
+.datepick {
+    display: flex;
+
+    background-color: var(--inputColor);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 17px;
+    /* max-height: 10px; */
+    border: none;
+    outline: none;
+    align-content: center;
+}
+.datepicker {
+    border: none;
+    background-color: transparent;
+}
+.earningMove{
+    display:flex;
 }

@@ -5,28 +5,29 @@ const postSchema = mongoose.Schema(
         type: String, 
         required: true
      },
-     title: { 
-        type: String
-     },
      note: { 
       type: String
       },
      ticker: { 
-        type: String, 
-        required: true
-     },
-    earningDate: String,
-    importantDate: String,
-    estimatedMove: Number,
-    lastMove: Number,
-    url: String,
-    likes: [],
-    // createdAt: {
-    //   type: Date,
-    //   required: true,
-    //   default: Date.now(),
-    //   get: formatDate,
-    // }
+      type: String,
+      required: true
+   },
+    earningDate: { 
+      type: String,
+      required: true
+   },
+    estimatedMove: { 
+      type: Number,
+      default: 0,
+      required: true
+      },
+    lastMove: { 
+      type: Number,
+      default: 0,
+      required: true
+      },
+    bearish: [],
+    bullish: [],
   },
   {
     timestamps: true,

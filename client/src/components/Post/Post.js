@@ -2,7 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './Post.css'
 import { Button } from 'semantic-ui-react'
-
+import moment from 'moment';
+moment().format();
 
 const Post = ({posts, handleDelete}) => {
   
@@ -48,7 +49,7 @@ const Post = ({posts, handleDelete}) => {
           />
           <Button 
             disabled 
-            size='mini'>{post.createdAt}</Button>
+            size='mini'>{ moment(post.createdAt).format('MM/DD/YYYY')}</Button>
             <Button
             content='Readed'
             size='mini'

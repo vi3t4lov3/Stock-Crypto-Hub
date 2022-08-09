@@ -48,21 +48,22 @@ const PostShare = () => {
         formData.append('body', body)
         formData.append('title', title)
         formData.append('url', url)
-        }else{
+        }else {
+        formData.append('userId', user.user._id)
         formData.append('body', body)
         formData.append('title', title)
-        formData.append('url', url)
         }
         await axios.post("/api/posts", formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        }).then(_ => {
+        }).then(data => {
+            console(data)
             setTitle(null)
             setBody(null)
             setImage(null)
             window.location.href = "/";
-            // console.log('Image uploaded')
+            console.log('Image uploaded')
         }).catch(err => {
             console.error(err)
         })
