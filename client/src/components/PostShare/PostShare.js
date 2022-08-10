@@ -3,11 +3,12 @@ import Profile from "../../assets/img/profileImg.jpg";
 import "./PostShare.css";
 import { Icon, Button, Modal } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
-import Calendar from '../Calendar/Calendar';
 import {usePostsContext} from '../../Hooks/usePostsContext'
 // import {usePost} from '../../Hooks/usePost'
 import axios from "axios"
 import moment from 'moment';
+import WatchListModal from '../Modal/WatchLishModal';
+import EarningsModal from '../Modal/EarningModal';
 moment().format();
 
 const PostShare = () => {
@@ -47,7 +48,7 @@ const PostShare = () => {
         formData.append('title', title)
         formData.append('url', url)
         } if (image) {
-            const newImageName =  moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-ss') + image.name
+            const newImageName =  moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-') + image.name
             // formData.append('original', image.name)
             formData.append('image', image)
             formData.append('image', newImageName)
@@ -125,35 +126,11 @@ const PostShare = () => {
                     <Icon name='alarm' size='big' style={{ color: "var(--alert)" }}/>
                     Alert
                 </div>
-
-               
-                 <div className="otpion">
-
-                <Modal 
-                    onClose={() => setOpen(false)}
-                    centered={false}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<Icon name='list' size='big' style={{ color: "var(--watchlist)" }}/>}>
-                    <Calendar />
-                </Modal>
-
-                Watchlist
+                <div className="otpion">
+                <WatchListModal />
                </div>
-               
-               
-               
-               
                <div className="otpion">
-                <Modal 
-                    onClose={() => setOpen(false)}
-                    centered={false}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    trigger={<Icon name='calendar alternate outline' size='big' style={{ color: "var(--shedule)" }}/>}>
-                    <Calendar />
-                </Modal>
-                Earning
+                <EarningsModal />
                </div>
                <Button encType="multipart/form-data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}><Icon name="share"/>Share</Button>
                {error && <div className="error">{error}</div>}

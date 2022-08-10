@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from './Routes/UserRoutes.js'
 import postRoute from './Routes/PostRoutes.js'
-import calRoute from './Routes/ErRoutes.js'
-import wlRoute from './Routes/WatchListRoutes.js'
+import calRoute from './Routes/ErRoutes.js';
+import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser'
 import cors from 'cors';
 

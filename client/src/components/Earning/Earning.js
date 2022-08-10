@@ -4,14 +4,14 @@ import './Earning.css'
 import { Table, Popup } from 'semantic-ui-react'
 import moment from 'moment';
 moment().format();
-const New = ({data}) => {
+const Earning = ({data}) => {
   // const openInNewTab = url => {
   //   // 👇️ setting target to _blank with window.open
   //   window.open(url, '_blank', 'noopener,noreferrer');
   // };
   return (
   <>
-  <div className="New">
+  <div className="Earning">
       <center><h1>E/R Schedule</h1></center>
 <Table>
 <Table.Header>
@@ -51,4 +51,4 @@ const New = ({data}) => {
   )
 }
 
-export default New 
+export default Earning 

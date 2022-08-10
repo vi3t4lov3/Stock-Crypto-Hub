@@ -1,4 +1,4 @@
-import WatchListModel from "../Models/ErModel.js";
+import WatchListModel from "../Models/WlModel.js";
 import mongoose from "mongoose";
 import UserModel from "../Models/UserModel.js";
 

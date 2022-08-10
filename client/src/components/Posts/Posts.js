@@ -14,15 +14,15 @@ const Posts = () => {
       setData(newData);
     };
     
-    const handleDelete = async () => {
+    const handleDelete = async (id) => {
       if (!user) {
         return
       }
-      const response = await fetch('/api/posts/' + posts._id , {
+      const response = await fetch('http://localhost:4000/api/posts/' + posts._id , {
         method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${user.user.token}`
-        }
+        // headers: {
+        //   'Authorization': `Bearer ${user.user.token}`
+        // }
       })
       const json = await response.json()
   console.log(json);

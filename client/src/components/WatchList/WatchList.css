@@ -1,0 +1,28 @@
+.WatchList
+{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+    background-color: var(--cardColor);
+    border-radius: 1rem;
+    gap: 1rem;
+}
+
+.WatchList>img{
+    width: 100%;
+    max-height: 20rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.newReact{
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.2rem;
+}
+.container-list {
+    width: 100%;
+    margin-bottom: 20px;
+    /* margin: 1rem; */
+}
