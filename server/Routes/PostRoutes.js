@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
       callback(null, "../client/public/uploads")
     }, 
     filename: (req, file, callback) => {
-      const imagesAddedDate= moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a')
+      const imagesAddedDate= moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-ss')
         const fileName = imagesAddedDate+file.originalname
         // const [_, extension] = file.originalname.split('.')
       callback(null, `${fileName}`)

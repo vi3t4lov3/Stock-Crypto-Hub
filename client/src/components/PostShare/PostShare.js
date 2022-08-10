@@ -47,7 +47,7 @@ const PostShare = () => {
         formData.append('title', title)
         formData.append('url', url)
         } if (image) {
-            const newImageName =  moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a') + image.name
+            const newImageName =  moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-ss') + image.name
             // formData.append('original', image.name)
             formData.append('image', image)
             formData.append('image', newImageName)
