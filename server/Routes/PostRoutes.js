@@ -3,15 +3,15 @@ import multer from 'multer'
 import { v4 as uuidv4 } from 'uuid';
 import requireAuth from '../Middleware/requireAuth.js'
 import User from "../Models/UserModel.js";
-
+import moment from 'moment';
+moment().format();
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
       callback(null, "../client/public/uploads")
     }, 
     filename: (req, file, callback) => {
-      // const id = req.params.id;
-        // console.log(ser_id)
-        const fileName = file.originalname
+      const imagesAddedDate= moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a')
+        const fileName = imagesAddedDate+file.originalname
         // const [_, extension] = file.originalname.split('.')
       callback(null, `${fileName}`)
     }

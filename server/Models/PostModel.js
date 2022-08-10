@@ -6,8 +6,13 @@ const postSchema = mongoose.Schema(
         type: String, 
         required: true
      },
+     username: { 
+      type: String, 
+      required: true
+   },
      title: { 
-        type: String
+        type: String,
+        required: true
      },
      body: { 
         type: String, 

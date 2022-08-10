@@ -35,7 +35,10 @@ const New = ({data}) => {
       Bull({newData.bull})/Bear({newData.bull})
       </center> 
       </Table.Cell>
-      <Table.Cell>{ moment(newData.earningDate).format('MM/DD/YY')}</Table.Cell>
+      <Table.Cell>{ moment(newData.earningDate).format('MM/DD/YY')}
+      <br />
+     <p style={{fontSize:'9px'}}>@{newData.username}</p> 
+      </Table.Cell>
       <Table.Cell>{newData.estimatedMove}%</Table.Cell>
       <Table.Cell>{newData.lastMove}%</Table.Cell>
       {/* <Table.Cell>{newData.lastMove}</Table.Cell> */}

@@ -4,11 +4,15 @@ import "./PostShare.css";
 import { Icon, Button, Modal } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 import Calendar from '../Calendar/Calendar';
+import {usePostsContext} from '../../Hooks/usePostsContext'
 // import {usePost} from '../../Hooks/usePost'
 import axios from "axios"
+import moment from 'moment';
+moment().format();
 
 const PostShare = () => {
     const {user} = useAuthContext()
+    const { dispatch } = usePostsContext()
     const [mod, setMod] = useState(1)
     const [open, setOpen] = React.useState(false)
     const [title, setTitle] = useState()
@@ -17,7 +21,6 @@ const PostShare = () => {
     const [error, setError] = useState(null)
     const [url, setUrl] = useState()
     const [source, setSource] = useState(false)
-    // const {createPost, error, isLoading} = usePost()
     const imageRef = useRef()
     const onImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
@@ -30,10 +33,8 @@ const PostShare = () => {
 
    }
     const handleSubmit = async (e) => {
-        if (!user) {
-            setError('You must be logged in')
-            return
-          }
+        if (user) {
+           
         e.preventDefault();
          // if there is an image with post
    
@@ -41,18 +42,22 @@ const PostShare = () => {
         // console.log(image)
         if (source) {
         formData.append('userId', user.user._id)
+        formData.append('username', user.user.username)
         formData.append('body', body)
         formData.append('title', title)
         formData.append('url', url)
         } if (image) {
-            const newImageName = image.name
+            const newImageName =  moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a') + image.name
+            // formData.append('original', image.name)
             formData.append('image', image)
             formData.append('image', newImageName)
             formData.append('userId', user.user._id)
+            formData.append('username', user.user.username)
             formData.append('body', body)
             formData.append('title', title)
             }
         else {
+        formData.append('username', user.user.username)
         formData.append('userId', user.user._id)
         formData.append('body', body)
         formData.append('title', title)
@@ -61,17 +66,21 @@ const PostShare = () => {
             headers: {
                 'content-type': 'multipart/form-data'
             }
+
         }).then((res) => {
-            // console.log(res)
+            // const json = res.json();
+            console.log(res.data)
             setTitle(null)
             setBody(null)
             setImage(null)
+            // dispatch({type: 'CREATE_POST', payload: res})
             window.location.href = "/";
-            // console.log('Image uploaded')
         }).catch(err => {
-            console.error({failed: err })
+            setError(err)
+            console.log(err);
         })
-        
+  }
+  
     }
   return (
     <>
@@ -147,6 +156,7 @@ const PostShare = () => {
                 Earning
                </div>
                <Button encType="multipart/form-data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}><Icon name="share"/>Share</Button>
+               {error && <div className="error">{error}</div>}
                {/* hidden the chooise file input */}
                <div style={{ display: "none" }}>
                 <input

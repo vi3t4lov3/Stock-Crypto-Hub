@@ -1,5 +1,5 @@
 import {authAdmin} from "../Middleware/reqiureRole.js"
-import uploadReq from '../Middleware/uploadImage.js'
+
 import express from "express";
 import { 
     registerUser,

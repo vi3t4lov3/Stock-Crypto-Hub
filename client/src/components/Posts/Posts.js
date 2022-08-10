@@ -9,15 +9,36 @@ import useFetch from '../../Hooks/FetchData'
 const Posts = () => {
   const {user} = useAuthContext()
   const {data: posts, setData, error} = useFetch('/api/posts')
-    const handleDelete = (id) => {
+    const hiddenPost = (id) => {
       const newData = posts.filter(post => post._id !== id)
       setData(newData);
     };
+    
+    const handleDelete = async () => {
+      if (!user) {
+        return
+      }
+      const response = await fetch('/api/posts/' + posts._id , {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${user.user.token}`
+        }
+      })
+      const json = await response.json()
+  console.log(json);
+      if (response.ok) {
+        console.log('deleted');
+        // posts.filter((p) => p._id !== posts._id)
+        
+        // dispatch({type: 'DELETE_POSTT', payload: json})
+      }
+      console.log('loi')
+    }
 
   return (
     <div className="Posts">
        {error && <div> {error} </div> }
-      {posts && <Post posts={posts}  handleDelete={handleDelete}/>}
+      {posts && <Post posts={posts}  hiddenPost={hiddenPost} handleDelete={handleDelete} />}
     </div>
   )
 }

@@ -1,12 +1,35 @@
 import React from 'react'
+import {usePostsContext} from '../../Hooks/usePostsContext'
+import {useAuthContext} from '../../Hooks/useAuthContext'
 import {Link} from 'react-router-dom'
 import './Post.css'
 import { Button } from 'semantic-ui-react'
 import moment from 'moment';
 moment().format();
 
-const Post = ({posts, handleDelete}) => {
-  
+const Post = ({posts, hiddenPost}) => {
+  const { user } = useAuthContext()
+  const { post } = usePostsContext()
+  const handleDelete = async () => {
+    if (!user) {
+      return
+    }
+    const response = await fetch('/api/posts/' + posts._id , {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.user.token}`
+      }
+    })
+    const json = await response.json()
+console.log(json);
+    if (response.ok) {
+      console.log('deleted');
+      // posts.filter((p) => p._id !== posts._id)
+      
+      // dispatch({type: 'DELETE_POSTT', payload: json})
+    }
+    console.log('loi')
+  }
   return ( 
     <>
     {posts.map((post) => (
@@ -54,6 +77,12 @@ const Post = ({posts, handleDelete}) => {
             content='Readed'
             size='mini'
             icon='book'
+            onClick={() => hiddenPost(post._id)}
+          />
+            <Button key={post._id}
+            // content='Delete'
+            size='mini'
+            icon='delete'
             
             onClick={() => handleDelete(post._id)}
           />

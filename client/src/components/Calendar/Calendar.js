@@ -29,7 +29,7 @@ const Calendar = () => {
             const response = await fetch('/api/cal', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userId:user.user._id, ticker, note, earningDate, lastMove, estimatedMove})
+                body: JSON.stringify({userId:user.user._id,username:user.user.username, ticker, note, earningDate, lastMove, estimatedMove})
               })
               const json = await response.json()
           console.log(json);

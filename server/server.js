@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from './Routes/UserRoutes.js'
 import postRoute from './Routes/PostRoutes.js'
-import calRoute from './Routes/CalendarRoutes.js'
+import calRoute from './Routes/ErRoutes.js'
+import wlRoute from './Routes/WatchListRoutes.js'
 import bodyParser from 'body-parser'
 import cors from 'cors';
 
@@ -13,6 +14,7 @@ const app = express();
 
 // to serve images inside public folder
 app.use(express.static('public')); 
+
 app.use('/uploads', express.static('uploads'));
 
 //middleware
@@ -26,6 +28,7 @@ app.use(cors())
 app.use('/api/user', userRoute)
 app.use('/api/posts', postRoute)
 app.use('/api/cal', calRoute)
+app.use('/api/wl', wlRoute)
 
 
 

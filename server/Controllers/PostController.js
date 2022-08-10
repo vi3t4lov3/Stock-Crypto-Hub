@@ -6,6 +6,7 @@ import UserModel from "../Models/UserModel.js";
 
 // Creat new Post
 export const createPost = async (req, res) => {
+
     const post = new PostModel(req.body);
     try {
         await post.save();
@@ -60,7 +61,9 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   const postId = req.params.id;
   const { userId } = req.body;
-
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(404).json({error: 'No post found'})
+  }
   try {
     const post = await PostModel.findById(postId);
     if (post.userId === userId) {
