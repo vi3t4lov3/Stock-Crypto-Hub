@@ -10,14 +10,16 @@ moment().format();
 const Post = ({posts, hiddenPost}) => {
   const { user } = useAuthContext()
   const { post } = usePostsContext()
-  const handleDelete = async () => {
+  const handleDelete = async (e) => {
+    console.log(posts);
     if (!user) {
       return
     }
     const response = await fetch('/api/posts/' + posts._id , {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${user.user.token}`
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${user.user.token}`
       }
     })
     const json = await response.json()
@@ -28,7 +30,7 @@ console.log(json);
       
       // dispatch({type: 'DELETE_POSTT', payload: json})
     }
-    console.log('loi')
+    console.log({error: response.error})
   }
   return ( 
     <>
