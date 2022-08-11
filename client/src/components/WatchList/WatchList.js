@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../Hooks/useAuthContext';
 import './WatchList.css';
-import { Button, Card, Image, List } from 'semantic-ui-react';
+import { Button, Card, Image, Icon, Label } from 'semantic-ui-react';
 import moment from 'moment';
-
 moment().format();
 const WatchList = ({ data }) => {
 	const { user } = useAuthContext();
-	const [userCount, setUserCount] = useState({});
-
+	const [userBullCount, setUserBullCount] = useState({});
+	const [userBearCount, setUserBearCount] = useState({});
 	useEffect(() => {
-		const localUserCount = {};
+		const localUserBullCount = {};
 		for (const userData of data) {
-			localUserCount[userData._id] = userData.bullCount;
+			localUserBullCount[userData._id] = userData.bullCount;
 		}
-		setUserCount(localUserCount);
+		setUserBullCount(localUserBullCount);
+
+		const localUserBearCount = {};
+		for (const userData of data) {
+			localUserBearCount[userData._id] = userData.bearCount;
+		}
+		setUserBearCount(localUserBearCount);
 	}, [user]);
 
 	const bullHandler = async (eventId) => {
@@ -24,13 +29,26 @@ const WatchList = ({ data }) => {
 		await fetch('/api/wl/' + eventId + '/bullcount', {
 			method: 'GET',
 		}).then((_) => {
-			setUserCount((prevState) => ({
+			setUserBullCount((prevState) => ({
 				...prevState,
 				[eventId]: prevState[eventId] + 1,
 			}));
 		});
 	};
-	const bearHandler = () => {};
+
+	const bearHandler = async (eventId) => {
+		if (!user) {
+			return;
+		}
+		await fetch('/api/wl/' + eventId + '/bearcount', {
+			method: 'GET',
+		}).then((_) => {
+			setUserBearCount((prevState) => ({
+				...prevState,
+				[eventId]: prevState[eventId] + 1,
+			}));
+		});
+	};
 	return (
 		<>
 			<div className='Watchlist'>
@@ -70,14 +88,24 @@ const WatchList = ({ data }) => {
 						<Card.Content extra>
 							<div className='ui two buttons'>
 								<Button
-									basic
-									color='green'
+									as='div'
+									labelPosition='right'
 									onClick={(_) => bullHandler(newData._id)}
 								>
-									Bull {userCount[newData._id]}
+									<Button color='green'>
+										<Icon name='arrow circle up' />
+										Bull {userBullCount[newData._id]}
+									</Button>
 								</Button>
-								<Button basic color='red'>
-									Bear
+								<Button
+									as='div'
+									labelPosition='right'
+									onClick={(_) => bearHandler(newData._id)}
+								>
+									<Button color='red'>
+										<Icon name='arrow circle down' />
+										Bear {userBearCount[newData._id]}
+									</Button>
 								</Button>
 							</div>
 						</Card.Content>
