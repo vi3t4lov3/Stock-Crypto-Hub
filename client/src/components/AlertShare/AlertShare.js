@@ -3,69 +3,47 @@ import Profile from "../../assets/img/profileImg.jpg";
 import "./AlertShare.css";
 import { Icon, Button } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
-// import {usePost} from '../../Hooks/usePost'
-import axios from "axios"
-
+// import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const AlertShare = () => {
     const {user} = useAuthContext()
-    const [title, setTitle] = useState()
-    const [body, setBody] = useState()
-    const [image, setImage] = useState(null)
+    const [ticker, setTicker] = useState()
+    const [entryPrice, setEntryPrice] = useState()
+    const [targetPrice, setTargetPrice] = useState()
+    const [stopLossPrice, setStopLossPrice] = useState()
+    const [currentPrice, setCurrentPrice] = useState()
+    const [category, setCategory] = useState('Option')
+    const [expriedDay , setExpriedDay] = useState()
+    const [put, setPut] = useState()
     const [error, setError] = useState(null)
-    const [url, setUrl] = useState()
-    const [source, setSource] = useState(false)
     // const {createPost, error, isLoading} = usePost()
-    const imageRef = useRef()
-    const onImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let img = e.target.files[0];
-            setImage(img)
-        }
-    }
-   const alertHandle = () => {
-    setSource(true)
+
+   const urlHandler = () => {
+    // setSource(true)
 
    }
-    const handleSubmit = async (e) => {
+    const hadnleSubmit = async (e) => {
         if (!user) {
             setError('You must be logged in')
             return
           }
-        e.preventDefault();
-         // if there is an image with post
-   
-        const formData = new FormData();
-        // console.log(image)
-        if (image) {
-        const newImageName = image.name
-        formData.append('image', image)
-        formData.append('image', newImageName)
-        formData.append('userId', user.user._id)
-        formData.append('body', body)
-        formData.append('title', title)
-        } if (source) {
-        formData.append('userId', user.user._id)
-        formData.append('body', body)
-        formData.append('title', title)
-        formData.append('url', url)
-        }else{
-        formData.append('body', body)
-        formData.append('title', title)
-        formData.append('url', url)
-        }
-        await axios.post("/api/posts", formData, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }).then(_ => {
-            setTitle(null)
-            setBody(null)
-            setImage(null)
-            window.location.href = "/";
-            // console.log('Image uploaded')
-        }).catch(err => {
-            console.error(err)
-        })
+            e.preventDefault();
+            // console.log(user.user._id);
+            const response = await fetch('/api/alert', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({userId:user.user._id, username:user.user.username, ticker, note, support, resistance, analysts, call, put})
+              })
+              const json = await response.json()
+          console.log(json);
+              if (!response.ok) {
+                setError(json.error)
+              }
+              if (response.ok) {
+                // save the user to local storage
+                // localStorage.setItem('user', JSON.stringify(json))
+                window.location.href = "/";
+              }
         
     }
   return (
@@ -73,65 +51,85 @@ const AlertShare = () => {
     {user && (
     <div className="AlertShare">
          <img src={Profile} alt="" />
-        <div>
-        <input
-            type="text"
-            placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)} 
-            value={title}
-            required
-            />
-            <textarea
-            type="text"
-            placeholder="Shares your thought..."
-            onChange={(e) => setBody(e.target.value)} 
-            value={body}
-            required
-            />
-    {source &&
-     (<input
-     type="text"
-     placeholder="Paste URL here"
-     onChange={(e) => setUrl(e.target.value)} 
-     value={url}
-     required
-     />)
-    }
+        <div className="alerSharePost">
+                <input
+                type="text"
+                placeholder="Ticker"
+                onChange={(e) => setTicker(e.target.value)} 
+                value={ticker}
+                required
+                />
+                <textarea
+                    type="text"
+                    placeholder="Analysts..."
+                    onChange={(e) => setAnalysts(e.target.value)} 
+                    value={analysts}
+                    /> 
+                {/* <div className="datepick">
+                <p>Support</p> 
+                <DatePicker className="datepicker" 
+                selected={earningDate} 
+                onChange={(date) => setEarningDate(date)}
+                />
+                </div> */}
+                <input
+                    type="text"
+                    placeholder="Tradingview Chart Link"
+                    onChange={(e) => setSupport(e.target.value)} 
+                    value={chart}
+                    /> 
+                <input
+                    type="text"
+                    placeholder="Support Level 1,2,3,4..."
+                    onChange={(e) => setSupport(e.target.value)} 
+                    value={support}
+                    /> 
+                <input
+                type="text"
+                placeholder="Resistance Level 1,2,3,4..."
+                onChange={(e) => setResistance(e.target.value)} 
+                value={resistance}
+                required
+                />  
+                <input
+                    type="text"
+                    placeholder="Call option"
+                    onChange={(e) => setCall(e.target.value)} 
+                    value={call}
+                    />  
+                <input
+                type="text"
+                placeholder="Call option"
+                onChange={(e) => setPut(e.target.value)} 
+                value={put}
+                />    
+        
+        <textarea
+        type="text"
+        placeholder="Import note if any..."
+        onChange={(e) => setNote(e.target.value)} 
+        value={note}
+        />
+
             <div className="postOption">
-               <div className="otpion" onClick={ () => imageRef.current.click()}>
+               {/* <div className="otpion">
                 <Icon name='images' size='big' style={{ color: "var(--photo)" }}/>
                 Photo
-               </div>
-               <div className="otpion" onClick={alertHandle}>
+               </div> */}
+               {/* <div className="otpion" onClick={urlHandler}>
                 <Icon name='linkify' size='big' style={{ color: "var(--video)" }}/>
                 Source
-               </div>
-               <div className="otpion">
+               </div> */}
+               {/* <div className="otpion">
                 <Icon name='location arrow' size='big' style={{ color: "var(--location)" }}/>
                 Location
-               </div>
-               <div className="otpion">
-                <Icon name='calendar alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
+               </div> */}
+               {/* <div className="otpion">
+                <Icon name='AlertShare alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
                 Shedule
-               </div>
-               <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}><Icon name="share"/>Share</Button>
-               {/* hidden the chooise file input */}
-               <div style={{ display: "none" }}>
-                <input
-                type="file"
-                fileName="image"
-                name="image"
-                ref={imageRef}
-                onChange={onImageChange}
-                />
-                </div>
+               </div> */}
+               <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={hadnleSubmit}>Submit</Button>
             </div>
-            {image && (
-                <div className="previewImage">
-                     <Icon className="icon" name='close' size='big' style={{ color: "var(--blue)" }} onClick={()=>setImage(null)}/>
-                    <img src={URL.createObjectURL(image)} alt="" />
-                </div>
-            )}
         </div>
     </div>
     )}

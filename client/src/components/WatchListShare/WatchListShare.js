@@ -13,8 +13,8 @@ const WatchListShare = () => {
     const [analysts, setAnalysts] = useState()
     const [chart, setChart] = useState()
     const [note, setNote] = useState()
-    const [call, setCall] = useState(null)
-    const [put, setPut] = useState(null)
+    const [call, setCall] = useState()
+    const [put, setPut] = useState()
     const [error, setError] = useState(null)
     // const {createPost, error, isLoading} = usePost()
 

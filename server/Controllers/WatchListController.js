@@ -73,6 +73,29 @@ export const deleteWatchList = async (req, res) => {
     res.status(500).json({error: error.message});
   }
 };
+
+export const bullCountTicker = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await WatchListModel.findById(id);
+
+  const updatedPost = await WatchListModel.findByIdAndUpdate(id, { bullCount: post.bullCount + 1 }, { new: true });
+  
+  res.json(updatedPost);
+}
+export const bearCountTicker = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const post = await WatchListModel.findById(id);
+
+  const updatedPost = await WatchListModel.findByIdAndUpdate(id, { bearCount: post.bearCount + 1 }, { new: true });
+  
+  res.json(updatedPost);
+}
 // upload imge
 
 

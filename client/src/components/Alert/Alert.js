@@ -10,21 +10,6 @@ const WatchList = ({data}) => {
   //   // 👇️ setting target to _blank with window.open
   //   window.open(url, '_blank', 'noopener,noreferrer');
   // };
-
-  const bullHandler = async() => {
-    console.log(data);
-    if (!user) {
-      return
-    }
-    const response = await fetch('api/wl/' + data.posts._id + 'bullcount', {
-      method: 'PATCH',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({})
-    })
-  }
-  const bearHandler = () => {
-    
-  }
   return (
   <>
 
@@ -37,10 +22,10 @@ const WatchList = ({data}) => {
          <Image
            floated='right'
            size='mini'
-          //  src={user.user.profilePicture}
+           src={user.user.profilePicture}
          />
          <Card.Header>{newData.ticker}</Card.Header>
-         <Card.Meta>@{newData.username}</Card.Meta>
+         <Card.Meta>@{user.user.username}</Card.Meta>
          <Card.Description>
           <strong><u>Analysts: </u>{newData.analysts}</strong>
          </Card.Description>
@@ -60,10 +45,10 @@ const WatchList = ({data}) => {
        </Card.Content>
        <Card.Content extra>
          <div className='ui two buttons'>
-           <Button basic color='green' onClick={bullHandler}>
+           <Button basic color='green'>
              Bull 
            </Button>
-           <Button basic color='red' >
+           <Button basic color='red'>
              Bear
            </Button>
          </div>
