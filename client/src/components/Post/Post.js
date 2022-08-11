@@ -13,7 +13,7 @@ const Post = ({ posts, hiddenPost }) => {
 	const handleDelete = async (eventId) => {
 		// console.log(posts);
 		if (!user) {
-			return;
+			console.log('loging please');
 		}
 		const response = await fetch('/api/posts/' + eventId, {
 			method: 'DELETE',
@@ -111,12 +111,14 @@ const Post = ({ posts, hiddenPost }) => {
 							icon='book'
 							onClick={() => hiddenPost(post._id)}
 						/>
+						{/* {post.userId != user.user._id && ( */}
 						<Button
 							// content='Delete'
 							size='mini'
 							icon='delete'
 							onClick={() => handleDelete(post._id)}
 						/>
+						{/* )} */}
 					</div>
 				</div>
 			))}
