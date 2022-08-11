@@ -51,5 +51,5 @@ function formatDate(date) {
   });
   return stringDate;
 }
-var CalendarModel = mongoose.model("Calendars", earningSchema);
+var CalendarModel = mongoose.model("Earning", earningSchema);
 export default CalendarModel;

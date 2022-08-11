@@ -90,7 +90,7 @@ const WatchList = ({ data }) => {
 								<Button
 									as='div'
 									labelPosition='right'
-									onClick={(_) => bullHandler(newData._id)}
+									onClick={() => bullHandler(newData._id)}
 								>
 									<Button color='green'>
 										<Icon name='arrow circle up' />
@@ -100,7 +100,7 @@ const WatchList = ({ data }) => {
 								<Button
 									as='div'
 									labelPosition='right'
-									onClick={(_) => bearHandler(newData._id)}
+									onClick={() => bearHandler(newData._id)}
 								>
 									<Button color='red'>
 										<Icon name='arrow circle down' />
