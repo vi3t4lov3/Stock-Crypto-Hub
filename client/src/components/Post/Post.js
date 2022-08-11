@@ -99,7 +99,7 @@ const Post = ({ posts, hiddenPost }) => {
 							content='Comment'
 							size='mini'
 							icon='comment outline'
-							label={{ basic: true, pointing: 'left', content: post.comment }}
+							label={{ basic: true, pointing: 'left', content: 'testing' }}
 						/>
 						<Button content='Share' size='mini' icon='share alternate' />
 						<Button disabled size='mini'>

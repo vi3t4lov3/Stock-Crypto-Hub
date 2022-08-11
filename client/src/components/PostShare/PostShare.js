@@ -13,7 +13,7 @@ moment().format();
 
 const PostShare = () => {
 	const { user } = useAuthContext();
-	const { dispatch } = usePostsContext();
+	// const { dispatch } = usePostsContext();
 	const [title, setTitle] = useState();
 	const [body, setBody] = useState();
 	const [image, setImage] = useState(null);
@@ -68,11 +68,11 @@ const PostShare = () => {
 				})
 				.then((res) => {
 					// const json = res.json();
-					console.log(res.data);
+					// console.log(res.data);
 					setTitle(title);
 					setBody(body);
 					setImage(null);
-					dispatch({ type: 'CREATE_POST', payload: res.data });
+					// dispatch({ type: 'CREATE_POST', payload: res.data });
 					window.location.href = '/';
 				})
 				.catch((err) => {

@@ -1,11 +1,11 @@
 import React, {useState, useRef} from 'react'
 import Profile from "../../assets/img/profileImg.jpg";
-import "./Calendar.css";
+import "./EarningShare.css";
 import { Icon, Button } from 'semantic-ui-react'
 import { useAuthContext } from '../../Hooks/useAuthContext'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-const Calendar = () => {
+const EarningShare = () => {
     const {user} = useAuthContext()
     const [ticker, setTicker] = useState()
     const [earningDate, setEarningDate] = useState(new Date())
@@ -46,7 +46,7 @@ const Calendar = () => {
   return (
     <>
     {user && (
-    <div className="Calendar">
+    <div className="EarningShare">
          <img src={Profile} alt="" />
         <div className="earningPost">
                 <input
@@ -97,7 +97,7 @@ const Calendar = () => {
                 Location
                </div> */}
                {/* <div className="otpion">
-                <Icon name='calendar alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
+                <Icon name='EarningShare alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
                 Shedule
                </div> */}
                <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={handleSubmit}>Submit</Button>
@@ -109,4 +109,4 @@ const Calendar = () => {
   )
 };
 
-export default Calendar
+export default EarningShare
