@@ -85,7 +85,7 @@ const PostShare = () => {
 		<>
 			{user && (
 				<div className='PostShare'>
-					<img src={Profile} alt='' />
+					<img src={user.user.profilePicture} alt='' />
 					<div>
 						<input
 							type='text'

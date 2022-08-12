@@ -23,31 +23,81 @@ const WatchList = ({ data }) => {
 	}, [user]);
 
 	const bullHandler = async (eventId) => {
+		// console.log(posts);
 		if (!user) {
 			return;
 		}
-		await fetch('/api/wl/' + eventId + '/bullcount', {
-			method: 'GET',
-		}).then((_) => {
-			setUserBullCount((prevState) => ({
-				...prevState,
-				[eventId]: prevState[eventId] + 1,
-			}));
+		const response = await fetch('/api/wl/' + eventId + '/bullcount', {
+			method: 'PUT',
+			body: JSON.stringify({ userId: user.user._id }),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${user.token}`,
+			},
 		});
+		const json = await response.json();
+
+		if (response.ok) {
+			// dispatch({ type: 'POST_LIKE', payload: json });
+			// setUserBearCount((prevState) => ({
+			// 	...prevState,
+			// 	[eventId]: prevState[eventId],
+			// }));
+			window.location.href = '/';
+		}
+		console.error('error');
+	};
+
+	const neutralHandler = async (eventId) => {
+		// console.log(posts);
+		if (!user) {
+			return;
+		}
+		const response = await fetch('/api/wl/' + eventId + '/neutralCount', {
+			method: 'PUT',
+			body: JSON.stringify({ userId: user.user._id }),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${user.token}`,
+			},
+		});
+		const json = await response.json();
+
+		if (response.ok) {
+			// dispatch({ type: 'POST_LIKE', payload: json });
+			// setUserBearCount((prevState) => ({
+			// 	...prevState,
+			// 	[eventId]: prevState[eventId],
+			// }));
+			window.location.href = '/';
+		}
+		console.error('error');
 	};
 
 	const bearHandler = async (eventId) => {
+		// console.log(posts);
 		if (!user) {
 			return;
 		}
-		await fetch('/api/wl/' + eventId + '/bearcount', {
-			method: 'GET',
-		}).then((_) => {
-			setUserBearCount((prevState) => ({
-				...prevState,
-				[eventId]: prevState[eventId] + 1,
-			}));
+		const response = await fetch('/api/wl/' + eventId + '/bearcount', {
+			method: 'PUT',
+			body: JSON.stringify({ userId: user.user._id }),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${user.token}`,
+			},
 		});
+		const json = await response.json();
+
+		if (response.ok) {
+			// dispatch({ type: 'POST_LIKE', payload: json });
+			// setUserBearCount((prevState) => ({
+			// 	...prevState,
+			// 	[eventId]: prevState[eventId],
+			// }));
+			window.location.href = '/';
+		}
+		console.error('error');
 	};
 	return (
 		<>
@@ -86,7 +136,7 @@ const WatchList = ({ data }) => {
 							</Card.Group>
 						</Card.Content>
 						<Card.Content extra>
-							<div className='ui two buttons'>
+							<div className='ui three buttons'>
 								<Button
 									as='div'
 									labelPosition='right'
@@ -94,7 +144,17 @@ const WatchList = ({ data }) => {
 								>
 									<Button color='green'>
 										<Icon name='arrow circle up' />
-										Bull {userBullCount[newData._id]}
+										Bull {newData.bullCount.length}
+									</Button>
+								</Button>
+								<Button
+									as='div'
+									labelPosition='right'
+									onClick={() => neutralHandler(newData._id)}
+								>
+									<Button color='gray'>
+										<Icon name='arrow circle down' />
+										Neutral {newData.neutralCount.length}
 									</Button>
 								</Button>
 								<Button
@@ -104,13 +164,14 @@ const WatchList = ({ data }) => {
 								>
 									<Button color='red'>
 										<Icon name='arrow circle down' />
-										Bear {userBearCount[newData._id]}
+										Bear {newData.bearCount.length}
 									</Button>
 								</Button>
 							</div>
 						</Card.Content>
 					</div>
 				))}
+        
 			</div>
 		</>
 	);

@@ -75,158 +75,113 @@ export const deleteWatchList = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
-//bullcount
+// //bullcount
+// export const bullCountTicker = async (req, res) => {
+// 	const { id } = req.params;
+
+// 	// console.log(`ID ${id}`);
+
+// 	if (!mongoose.Types.ObjectId.isValid(id))
+// 		return res.status(404).send(`No post with id: ${id}`);
+
+// 	const post = await WatchListModel.findById(id);
+
+// 	await WatchListModel.findByIdAndUpdate(
+// 		id,
+// 		{ bullCount: post.bullCount + 1 },
+// 		{ new: true }
+// 	)
+// 		.then((_) => {
+// 			console.log('Data updated successfully');
+// 			res.json('Data updated successfully');
+// 		})
+// 		.catch((err) => {
+// 			console.error(err);
+// 		});
+// };
+// //bearcount
+// export const bearCountTicker = async (req, res) => {
+// 	const { id } = req.params;
+
+// 	// console.log(`ID ${id}`);
+
+// 	if (!mongoose.Types.ObjectId.isValid(id))
+// 		return res.status(404).send(`No post with id: ${id}`);
+
+// 	const post = await WatchListModel.findById(id);
+
+// 	await WatchListModel.findByIdAndUpdate(
+// 		id,
+// 		{ bearCount: post.bearCount + 1 },
+// 		{ new: true }
+// 	)
+// 		.then((_) => {
+// 			console.log('Data updated successfully');
+// 			res.json('Data updated successfully');
+// 		})
+// 		.catch((err) => {
+// 			console.error(err);
+// 		});
+// };
+
+// voted and unvote a bull
 export const bullCountTicker = async (req, res) => {
-	const { id } = req.params;
+	const postId = req.params.id;
+	const { userId } = req.body;
 
-	// console.log(`ID ${id}`);
-
-	if (!mongoose.Types.ObjectId.isValid(id))
-		return res.status(404).send(`No post with id: ${id}`);
-
-	const post = await WatchListModel.findById(id);
-
-	await WatchListModel.findByIdAndUpdate(
-		id,
-		{ bullCount: post.bullCount + 1 },
-		{ new: true }
-	)
-		.then((_) => {
-			console.log('Data updated successfully');
-			res.json('Data updated successfully');
-		})
-		.catch((err) => {
-			console.error(err);
-		});
+	try {
+		const post = await WatchListModel.findById(postId);
+		if (!post.bullCount.includes(userId)) {
+			await post.updateOne({ $push: { bullCount: userId } });
+			res.status(200).json('Bull my voted');
+			// console.log('like');
+		} else {
+			await post.updateOne({ $pull: { bullCount: userId } });
+			res.status(200).json('Remove my vote');
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
-//bearcount
+// voted and unvote a bear
 export const bearCountTicker = async (req, res) => {
-	const { id } = req.params;
+	console.log(req.params.id);
 
-	// console.log(`ID ${id}`);
+	const postId = req.params.id;
+	const { userId } = req.body;
 
-	if (!mongoose.Types.ObjectId.isValid(id))
-		return res.status(404).send(`No post with id: ${id}`);
-
-	const post = await WatchListModel.findById(id);
-
-	await WatchListModel.findByIdAndUpdate(
-		id,
-		{ bearCount: post.bearCount + 1 },
-		{ new: true }
-	)
-		.then((_) => {
-			console.log('Data updated successfully');
-			res.json('Data updated successfully');
-		})
-		.catch((err) => {
-			console.error(err);
-		});
+	try {
+		const post = await WatchListModel.findById(postId);
+		if (!post.bearCount.includes(userId)) {
+			await post.updateOne({ $push: { bearCount: userId } });
+			res.status(200).json('Bull my voted');
+			// console.log('like');
+		} else {
+			await post.updateOne({ $pull: { bearCount: userId } });
+			res.status(200).json('Remove my vote');
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 };
-// upload imge
+// voted and unvote a bear
+export const neutralCountTicker = async (req, res) => {
+	console.log(req.params.id);
 
-// // like and dislike a post
-// export const likePost = async (req, res) => {
-//   const postId = req.params.id;
-//   const { userId } = req.body;
+	const postId = req.params.id;
+	const { userId } = req.body;
 
-//   try {
-//     const post = await watchListModel.findById(postId);
-//     if (!post.likes.includes(userId)) {
-//       await post.updateOne({ $push: { likes: userId } });
-//       res.status(200).json("Liked");
-//     } else {
-//       await post.updateOne({ $pull: { likes: userId } });
-//       res.status(200).json("Unliked");
-//     }
-//   } catch (error) {
-//     res.status(500).json({error: error.message});
-//   }
-// };
-// // getGroupPostByUserId
-// export const getGroupPostByUserId = async (req, res) => {
-//   const userId = req.params.id;
-//   try {
-//     const currentUserPosts = await watchListModel.find({ userId });
-//     const followingPosts = await UserModel.aggregate([
-//       {
-//         $match: {
-//           _id: new mongoose.Types.ObjectId(userId),
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: "posts",
-//           localField: "following",
-//           foreignField: "userId",
-//           as: "followingPosts",
-//         },
-//       },
-//       {
-//         $project: {
-//           followingPosts: 1,
-//           _id: 0,
-//         },
-//       },
-//     ]);
-
-//     res.status(200).json(currentUserPosts.concat(...followingPosts[0].followingPosts)
-//     .sort((a,b)=>{
-//         return b.createdAt - a.createdAt;
-//       })
-//       );
-//   }
-//   catch (error) { res.status(500).json({error: error.message});
-//   }
-// };
-
-// // add Add Comment to the post
-// export const addComment = async (req, res)  => {
-//   const postId = req.params.id;
-//   try {
-//     const post = await watchListModel.findById(postId);
-//     if (post) {
-//       await post.updateOne({ $push: { comment: req.body } });
-//       res.status(200).json(post);
-//     }
-//   } catch (error) {
-//     res.status(500).json({error: error.message});
-//   }
-// }
-// // add deleteComment to the post
-// export const deleteComment = async (req, res)  => {
-//   const postId = req.params.id;
-
-//   const { userId } = req.body;
-
-//   try {
-//     const post = await watchListModel.findById(postId);
-//     // const id = new mongoose.Types.ObjectId(_id)
-//     console.log(post);
-//     console.log(`${post.comment}`);
-//     if (comment.userId === userId) {
-//       await post.updateOne({ $pull: { comment: req.body } });
-//       res.status(200).json("Comment deleted successfully");
-//     } else {
-//       res.status(403).json("Action forbidden! You are not the author of this comment");
-//     }
-//   } catch (error) {
-//     res.status(500).json({error: error.message});
-//   }
-// }
-
-// const postId = req.params.id;
-//   const { userId } = req.body;
-
-//   try {
-//     const post = await watchListModel.findById(postId);
-//     if (!post.likes.includes(userId)) {
-//       await post.updateOne({ $push: { likes: userId } });
-//       res.status(200).json("Liked");
-//     } else {
-//       await post.updateOne({ $pull: { likes: userId } });
-//       res.status(200).json("Unliked");
-//     }
-//   } catch (error) {
-//     res.status(500).json({error: error.message});
-//   }
+	try {
+		const post = await WatchListModel.findById(postId);
+		if (!post.neutralCount.includes(userId)) {
+			await post.updateOne({ $push: { neutralCount: userId } });
+			res.status(200).json('Bull my voted');
+			// console.log('like');
+		} else {
+			await post.updateOne({ $pull: { neutralCount: userId } });
+			res.status(200).json('Remove my vote');
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};

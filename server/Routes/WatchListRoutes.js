@@ -7,7 +7,7 @@ import {
 	getAllWatchLists,
 	getWatchList,
 	deleteWatchList,
-	// likeWatchList,
+	neutralCountTicker,
 	updateWatchList,
 	bullCountTicker,
 	bearCountTicker,
@@ -23,7 +23,9 @@ router.get('/:id', getWatchList);
 router.get('/', getAllWatchLists);
 router.put('/:id', updateWatchList);
 router.delete('/:id', deleteWatchList);
-router.get('/:id/bullcount', bullCountTicker);
-router.get('/:id/bearcount', bearCountTicker);
+router.put('/:id/bullcount', bullCountTicker);
+router.put('/:id/bearcount', bearCountTicker);
+router.put('/:id/neutralcount', neutralCountTicker);
+
 // router.put("/:id/like", likeWatchList)
 export default router;

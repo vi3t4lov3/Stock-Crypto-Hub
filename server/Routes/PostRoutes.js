@@ -45,6 +45,6 @@ router.delete('/:id', deletePost);
 router.put('/:id/like', likePost);
 router.get('/:id/search', getGroupPostByUserId);
 router.delete('/:postID/comment/:id', deleteComment);
-router.post('/:id/comment', addComment);
+router.put('/:id/comment', addComment);
 // router.post('/upload',uploadImg)
 export default router;

@@ -18,7 +18,8 @@ const Posts = () => {
 	return (
 		<div className='Posts'>
 			{error && <div> {error} </div>}
-			{posts && <Post posts={posts} hiddenPost={hiddenPost} />}
+			{posts &&
+				posts.map((post) => <Post post={post} hiddenPost={hiddenPost} />)}
 		</div>
 	);
 };

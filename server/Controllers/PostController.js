@@ -91,7 +91,7 @@ export const likePost = async (req, res) => {
 		if (!post.likes.includes(userId)) {
 			await post.updateOne({ $push: { likes: userId } });
 			res.status(200).json('Liked');
-			console.log('like');
+			// console.log('like');
 		} else {
 			await post.updateOne({ $pull: { likes: userId } });
 			res.status(200).json('Unliked');
@@ -141,7 +141,8 @@ export const getGroupPostByUserId = async (req, res) => {
 
 // add Add Comment to the post
 export const addComment = async (req, res) => {
-	const postId = req.params.id;
+	// const postId = req.params.id;
+	// console.log(postId);
 	try {
 		const post = await PostModel.findById(postId);
 		if (post) {
@@ -160,9 +161,6 @@ export const deleteComment = async (req, res) => {
 
 	try {
 		const post = await PostModel.findById(postId);
-		// const id = new mongoose.Types.ObjectId(_id)
-		console.log(post);
-		console.log(`${post.comment}`);
 		if (comment.userId === userId) {
 			await post.updateOne({ $pull: { comment: req.body } });
 			res.status(200).json('Comment deleted successfully');
