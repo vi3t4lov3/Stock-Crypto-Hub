@@ -142,7 +142,7 @@ const WatchListShare = () => {
 								style={{ color: 'var(--blue)' }}
 								onClick={handleWLSubmit}
 							>
-								Submit
+								Add WatchList
 							</Button>
 						</div>
 					</div>

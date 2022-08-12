@@ -1,19 +1,19 @@
-import React from 'react'
-import './WatchLists.css'
-import WatchList from '../WatchList/WatchList'
-import { useAuthContext } from '../../Hooks/useAuthContext'
-import useFetch from '../../Hooks/FetchData'
+import React from 'react';
+import './Alerts.css';
+import Alert from '../Alert/Alert';
+import { useAuthContext } from '../../Hooks/useAuthContext';
+import useFetch from '../../Hooks/FetchData';
 
-const WatchLists = () => {
-  const {user} = useAuthContext()
-  const {data: watchlist, setWatchlist, error} = useFetch('/api/wl')
-// console.log(Earning);
-  return (
-    <div className="WatchLists">
-       {error && <div> {error} </div> }
-      {watchlist && <WatchList data={watchlist}/>}
-    </div>
-  )
-}
+const Alerts = () => {
+	const { user } = useAuthContext();
+	const { data: earning, setEarning, error } = useFetch('/api/cal');
+	// console.log(Earning);
+	return (
+		<div className='Earning'>
+			{error && <div> {error} </div>}
+			{earning && <Alert data={earning} />}
+		</div>
+	);
+};
 
-export default WatchLists
+export default Alerts;

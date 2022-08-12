@@ -1,140 +1,115 @@
-import React, {useState, useRef} from 'react'
-import Profile from "../../assets/img/profileImg.jpg";
-import "./AlertShare.css";
-import { Icon, Button } from 'semantic-ui-react'
-import { useAuthContext } from '../../Hooks/useAuthContext'
-// import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useRef } from 'react';
+import Profile from '../../assets/img/profileImg.jpg';
+import './AlertShare.css';
+import { Icon, Button } from 'semantic-ui-react';
+import { useAuthContext } from '../../Hooks/useAuthContext';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 const AlertShare = () => {
-    const {user} = useAuthContext()
-    const [ticker, setTicker] = useState()
-    const [entryPrice, setEntryPrice] = useState()
-    const [targetPrice, setTargetPrice] = useState()
-    const [stopLossPrice, setStopLossPrice] = useState()
-    const [currentPrice, setCurrentPrice] = useState()
-    const [category, setCategory] = useState('Option')
-    const [expriedDay , setExpriedDay] = useState()
-    const [put, setPut] = useState()
-    const [error, setError] = useState(null)
-    // const {createPost, error, isLoading} = usePost()
+	const { user } = useAuthContext();
+	const [ticker, setTicker] = useState();
+	const [optionTrade, setOptionTrade] = useState();
+	const [sharesTrade, setSharesTrade] = useState();
+	const [alertCommand, setAlertCommand] = useState();
+	const [entry, setEntry] = useState();
+	const [stopLoss, setStopLoss] = useState();
+	const [target, setTarget] = useState();
+	const [note, setNote] = useState('');
+	const [error, setError] = useState(null);
 
-   const urlHandler = () => {
-    // setSource(true)
+	const handleSubmit = async (e) => {
+		if (!user) {
+			setError('You must be logged in');
+			return;
+		}
+		e.preventDefault();
+		// console.log(user.user._id);
+		const response = await fetch('/api/alert', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				userId: user.user._id,
+				username: user.user.username,
+				ticker: ticker,
+				alert_command: alertCommand,
+				entry: entry,
+				stoploss: stopLoss,
+				target: target,
+				note: note,
+			}),
+		});
+		const json = await response.json();
+		console.log(json);
+		if (!response.ok) {
+			setError(json.error);
+		}
+		if (response.ok) {
+			// save the user to local storage
+			// localStorage.setItem('user', JSON.stringify(json))
+			window.location.href = '/';
+		}
+	};
+	return (
+		<>
+			{user && (
+				<div className='AlertShare'>
+					<img src={Profile} alt='' />
+					<div className='earningPost'>
+						<input
+							type='text'
+							placeholder='Ticker'
+							onChange={(e) => setTicker(e.target.value)}
+							value={ticker}
+							required
+						/>
+						<input
+							type='text'
+							placeholder='Command CALL/PUT LONG/SHORT'
+							onChange={(e) => setAlertCommand(e.target.value)}
+							value={alertCommand}
+						/>
+						<label>test</label>
+						<input
+							type='text'
+							placeholder='Entry Price'
+							onChange={(e) => setEntry(e.target.value)}
+							value={entry}
+						/>
+						<input
+							type='text'
+							placeholder='Stoploss price'
+							onChange={(e) => setStopLoss(e.target.value)}
+							value={stopLoss}
+						/>
+						<input
+							type='text'
+							placeholder='Target'
+							onChange={(e) => setTarget(e.target.value)}
+							value={target}
+						/>
 
-   }
-    const hadnleSubmit = async (e) => {
-        if (!user) {
-            setError('You must be logged in')
-            return
-          }
-            e.preventDefault();
-            // console.log(user.user._id);
-            const response = await fetch('/api/alert', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({userId:user.user._id, username:user.user.username, ticker, note, support, resistance, analysts, call, put})
-              })
-              const json = await response.json()
-          console.log(json);
-              if (!response.ok) {
-                setError(json.error)
-              }
-              if (response.ok) {
-                // save the user to local storage
-                // localStorage.setItem('user', JSON.stringify(json))
-                window.location.href = "/";
-              }
-        
-    }
-  return (
-    <>
-    {user && (
-    <div className="AlertShare">
-         <img src={Profile} alt="" />
-        <div className="alerSharePost">
-                <input
-                type="text"
-                placeholder="Ticker"
-                onChange={(e) => setTicker(e.target.value)} 
-                value={ticker}
-                required
-                />
-                <textarea
-                    type="text"
-                    placeholder="Analysts..."
-                    onChange={(e) => setAnalysts(e.target.value)} 
-                    value={analysts}
-                    /> 
-                {/* <div className="datepick">
-                <p>Support</p> 
-                <DatePicker className="datepicker" 
-                selected={earningDate} 
-                onChange={(date) => setEarningDate(date)}
-                />
-                </div> */}
-                <input
-                    type="text"
-                    placeholder="Tradingview Chart Link"
-                    onChange={(e) => setSupport(e.target.value)} 
-                    value={chart}
-                    /> 
-                <input
-                    type="text"
-                    placeholder="Support Level 1,2,3,4..."
-                    onChange={(e) => setSupport(e.target.value)} 
-                    value={support}
-                    /> 
-                <input
-                type="text"
-                placeholder="Resistance Level 1,2,3,4..."
-                onChange={(e) => setResistance(e.target.value)} 
-                value={resistance}
-                required
-                />  
-                <input
-                    type="text"
-                    placeholder="Call option"
-                    onChange={(e) => setCall(e.target.value)} 
-                    value={call}
-                    />  
-                <input
-                type="text"
-                placeholder="Call option"
-                onChange={(e) => setPut(e.target.value)} 
-                value={put}
-                />    
-        
-        <textarea
-        type="text"
-        placeholder="Import note if any..."
-        onChange={(e) => setNote(e.target.value)} 
-        value={note}
-        />
+						<textarea
+							type='text'
+							placeholder='Analyst'
+							onChange={(e) => setNote(e.target.value)}
+							value={note}
+						/>
 
-            <div className="postOption">
-               {/* <div className="otpion">
-                <Icon name='images' size='big' style={{ color: "var(--photo)" }}/>
-                Photo
-               </div> */}
-               {/* <div className="otpion" onClick={urlHandler}>
-                <Icon name='linkify' size='big' style={{ color: "var(--video)" }}/>
-                Source
-               </div> */}
-               {/* <div className="otpion">
-                <Icon name='location arrow' size='big' style={{ color: "var(--location)" }}/>
-                Location
-               </div> */}
-               {/* <div className="otpion">
-                <Icon name='AlertShare alternate outline' size='big' style={{ color: "var(--shedule)" }}/>
-                Shedule
-               </div> */}
-               <Button encType="multipart/form_data" className="share-button" style={{ color: "var(--blue)" }} onClick={hadnleSubmit}>Submit</Button>
-            </div>
-        </div>
-    </div>
-    )}
-    </>
-  )
+						<div className='postOption'>
+							<Button
+								encType='multipart/form_data'
+								className='share-button'
+								style={{ color: 'var(--blue)' }}
+								onClick={handleSubmit}
+							>
+								Add Alert
+							</Button>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
 };
 
-export default AlertShare
+export default AlertShare;

@@ -9,6 +9,7 @@ import axios from 'axios';
 import moment from 'moment';
 import WatchListModal from '../Modal/WatchLishModal';
 import EarningsModal from '../Modal/EarningModal';
+import AlertModal from '../Modal/AlertModal';
 moment().format();
 
 const PostShare = () => {
@@ -129,12 +130,7 @@ const PostShare = () => {
 							</div>
 
 							<div className='otpion'>
-								<Icon
-									name='alarm'
-									size='big'
-									style={{ color: 'var(--alert)' }}
-								/>
-								Alert
+								<AlertModal />
 							</div>
 							<div className='otpion'>
 								<WatchListModal />
