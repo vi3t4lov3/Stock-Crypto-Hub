@@ -110,65 +110,69 @@ const Post = ({ post, hiddenPost }) => {
 						)}
 					</div>
 					<img src={post.image ? '/uploads/' + post.image : ''} alt='' />
+					{user && (
+						<>
+							<div className='postReact'>
+								{post.likes.length > 0 ? (
+									<Button
+										onClick={() => handleLikes(post._id)}
+										color='red'
+										icon='heart'
+										size='mini'
+										label={{
+											basic: true,
+											color: 'red',
+											pointing: 'left',
+											content: post.likes.length,
+										}}
+									/>
+								) : (
+									<Button
+										onClick={() => handleLikes(post._id)}
+										content='Like'
+										color='green'
+										size='mini'
+										icon='heart'
+										label={{
+											basic: true,
+											pointing: 'left',
+											content: post.likes.length,
+										}}
+									/>
+								)}
+								<Button
+									onClick={() => setShowComment(!showComment)}
+									content='Comment'
+									size='mini'
+									icon='comment outline'
+									label={{
+										basic: true,
+										pointing: 'left',
+										content: post.comment.length,
+									}}
+								/>
+								<Button content='Share' size='mini' icon='share alternate' />
+								<Button disabled size='mini'>
+									{moment(post.createdAt).format('MM/DD/YYYY')}
+								</Button>
+								<Button
+									content='Hide'
+									size='mini'
+									icon='hide'
+									onClick={() => hiddenPost(post._id)}
+								/>
+								{user && user.user._id === post.userId && (
+									<Button
+										// content='Delete'
+										size='mini'
+										icon='delete'
+										onClick={() => handleDelete(post._id)}
+									/>
+								)}
+							</div>
+						</>
+					)}
 
-					<div className='postReact'>
-						{post.likes.length > 0 ? (
-							<Button
-								onClick={() => handleLikes(post._id)}
-								color='red'
-								icon='heart'
-								size='mini'
-								label={{
-									basic: true,
-									color: 'red',
-									pointing: 'left',
-									content: post.likes.length,
-								}}
-							/>
-						) : (
-							<Button
-								onClick={() => handleLikes(post._id)}
-								content='Like'
-								color='green'
-								size='mini'
-								icon='heart'
-								label={{
-									basic: true,
-									pointing: 'left',
-									content: post.likes.length,
-								}}
-							/>
-						)}
-						<Button
-							onClick={() => setShowComment(!showComment)}
-							content='Comment'
-							size='mini'
-							icon='comment outline'
-							label={{
-								basic: true,
-								pointing: 'left',
-								content: post.comment.length,
-							}}
-						/>
-						<Button content='Share' size='mini' icon='share alternate' />
-						<Button disabled size='mini'>
-							{moment(post.createdAt).format('MM/DD/YYYY')}
-						</Button>
-						<Button
-							content='Hide'
-							size='mini'
-							icon='hide'
-							onClick={() => hiddenPost(post._id)}
-						/>
-						{user && user.user._id === post.userId && (
-							<Button
-								// content='Delete'
-								size='mini'
-								icon='delete'
-								onClick={() => handleDelete(post._id)}
-							/>
-						)}
-					</div>
 					{user && showComment && (
 						<>
 							<Comment.Group>

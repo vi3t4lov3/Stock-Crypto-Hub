@@ -6,6 +6,28 @@ import moment from 'moment';
 moment().format();
 const Earning = ({ data }) => {
 	const { user } = useAuthContext();
+	// handle delete post
+	const handleDelete = async (eventId) => {
+		if (!user) {
+			console.log('loging please');
+		}
+		const response = await fetch('/api/cal/' + eventId, {
+			method: 'DELETE',
+			body: JSON.stringify({ userId: user.user._id }),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${user.token}`,
+			},
+		});
+		const json = await response.json();
+
+		if (response.ok) {
+			// dispatch({ type: 'DELETE_POST', payload: json });
+			window.location.href = '/';
+		}
+		console.error('error');
+	};
+
 	const bullHandler = async (eventId) => {
 		// console.log(posts);
 		if (!user) {
@@ -96,9 +118,13 @@ const Earning = ({ data }) => {
 							<Table.HeaderCell>Date</Table.HeaderCell>
 							<Table.HeaderCell>EST. ER</Table.HeaderCell>
 							<Table.HeaderCell>Last ER</Table.HeaderCell>
-							<Table.HeaderCell>
-								<center>Your Thought</center>
-							</Table.HeaderCell>
+							{user && (
+								<>
+									<Table.HeaderCell>
+										<center>Your Thought</center>
+									</Table.HeaderCell>
+								</>
+							)}
 							{/* <Table.HeaderCell>Bull/Bear</Table.HeaderCell> */}
 						</Table.Row>
 					</Table.Header>
@@ -121,31 +147,44 @@ const Earning = ({ data }) => {
 									</Table.Cell>
 									<Table.Cell>{newData.estimatedMove}%</Table.Cell>
 									<Table.Cell>{newData.lastMove}%</Table.Cell>
-									<Table.Cell>
-										<Button
-											size='mini'
-											color='green'
-											onClick={() => bullHandler(newData._id)}
-										>
-											{newData.bullCount.length}
-										</Button>
-										<br />
-										<Button
-											size='mini'
-											color='gray'
-											onClick={() => neutralHandler(newData._id)}
-										>
-											{newData.neutralCount.length}
-										</Button>
-										<br />
-										<Button
-											size='mini'
-											color='red'
-											onClick={() => bearHandler(newData._id)}
-										>
-											{newData.bearCount.length}
-										</Button>
-									</Table.Cell>
+									{user && (
+										<>
+											<Table.Cell>
+												<div className='earning-button'>
+													<Button
+														size='mini'
+														color='green'
+														onClick={() => bullHandler(newData._id)}
+													>
+														{newData.bullCount.length}
+													</Button>
+													<Button
+														size='mini'
+														color='gray'
+														onClick={() => neutralHandler(newData._id)}
+													>
+														{newData.neutralCount.length}
+													</Button>
+													<Button
+														size='mini'
+														color='red'
+														onClick={() => bearHandler(newData._id)}
+													>
+														{newData.bearCount.length}
+													</Button>
+													{user && user.user._id === newData.userId && (
+														<Button
+															size='mini'
+															color='green'
+															onClick={() => handleDelete(newData._id)}
+														>
+															x
+														</Button>
+													)}
+												</div>
+											</Table.Cell>
+										</>
+									)}
 								</Table.Row>
 							</>
 						))}

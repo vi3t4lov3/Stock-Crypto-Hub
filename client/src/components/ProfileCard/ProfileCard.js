@@ -43,10 +43,7 @@ const ProfileCard = () => {
 						<h2 className='text-center mb-4'>Contact Info</h2>
 						<ul className='list-group list-group-flush lead'>
 							<li className='list-group-item'>
-								<span className='fw-bold'>
-									<i className='bi bi-person-lines-fill'></i> Address
-								</span>{' '}
-								{user.user.livesin}
+								<span className='fw-bold'>Address</span> {user.user.livesin}
 							</li>
 							<li className='list-group-item'>
 								<span className='fw-bold'>
