@@ -97,7 +97,7 @@ export const bullCountTicker = async (req, res) => {
 };
 // voted and unvote a bear
 export const bearCountTicker = async (req, res) => {
-	console.log(req.params.id);
+	// console.log(req.params.id);
 
 	const postId = req.params.id;
 	const { userId } = req.body;
@@ -118,7 +118,7 @@ export const bearCountTicker = async (req, res) => {
 };
 // voted and unvote a bear
 export const neutralCountTicker = async (req, res) => {
-	console.log(req.params.id);
+	// console.log(req.params.id);
 
 	const postId = req.params.id;
 	const { userId } = req.body;
