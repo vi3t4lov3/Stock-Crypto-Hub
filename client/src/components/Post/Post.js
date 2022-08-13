@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './Post.css';
 import { Button, Comment, Icon, Form } from 'semantic-ui-react';
 import moment from 'moment';
+import YouTube from 'react-youtube';
 // import CommentShare from '../CommentShare/CommentShare';
 moment().format();
 
@@ -102,15 +103,9 @@ const Post = ({ post, hiddenPost }) => {
 						<p> {post.body}</p>
 						{post.url && (
 							<>
-								<iframe
-									width='100%'
-									height='480'
-									src={`https://www.youtube.com/embed/${post.url}`}
-									frameBorder='0'
-									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-									allowFullScreen
-									title='Embedded youtube'
-								/>
+								<center>
+									<YouTube videoId={post.url} />
+								</center>
 							</>
 						)}
 					</div>

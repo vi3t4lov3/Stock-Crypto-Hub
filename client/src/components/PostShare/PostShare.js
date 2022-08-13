@@ -95,7 +95,7 @@ const PostShare = () => {
 						{source && (
 							<input
 								type='text'
-								placeholder='Youtube link'
+								placeholder='Youtube URL ID'
 								onChange={(e) => setUrl(e.target.value)}
 								value={url}
 								required

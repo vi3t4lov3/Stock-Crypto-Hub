@@ -8,7 +8,7 @@ import alertRoute from './Routes/AlertRoutes.js';
 import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-
+import * as path from 'path';
 // express app
 const app = express();
 
