@@ -121,13 +121,15 @@ const WatchList = ({ data }) => {
 									{newData.analysts}
 								</strong>
 							</Card.Description>
-							<Image
-								src={newData.chart}
-								as='a'
-								size='huge'
-								href={newData.chart}
-								target='_blank'
-							/>
+							<center>
+								<Image
+									src={newData.chart}
+									as='a'
+									size='huge'
+									href={newData.chart}
+									target='_blank'
+								/>
+							</center>
 							<Card.Group>
 								<Card fluid color='blue' header={newData.resistance} />
 								<Card fluid color='green' header={newData.call} />
@@ -171,7 +173,6 @@ const WatchList = ({ data }) => {
 						</Card.Content>
 					</div>
 				))}
-        
 			</div>
 		</>
 	);

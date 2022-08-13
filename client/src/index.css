@@ -26,6 +26,8 @@
       color: var(--black);
       background: var(--bg);
       padding: 1rem 1rem;
+      margin-left: 10%;
+      margin-right: 10%;
     }    
 
     ::-webkit-scrollbar{
@@ -46,4 +48,8 @@
   flex-direction: column;
   align-self: center;
   }
+.App {
+  margin-left: 0;
+  margin-right: 0;
+}
 }

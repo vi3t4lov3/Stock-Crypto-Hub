@@ -137,3 +137,24 @@ export const neutralCountTicker = async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 };
+
+// like and dislike a post
+export const iBuy = async (req, res) => {
+	const alertId = req.params.id;
+	const { username } = req.body;
+	// console.log(alertId);
+	// console.log(username);
+	try {
+		const alert = await AlertModel.findById(alertId);
+		if (!alert.iBuy.includes(username)) {
+			await alert.updateOne({ $push: { iBuy: username } });
+			res.status(200).json('I Bought');
+			// console.log('like');
+		} else {
+			await alert.updateOne({ $pull: { iBuy: username } });
+			res.status(200).json('I Canceled');
+		}
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+};

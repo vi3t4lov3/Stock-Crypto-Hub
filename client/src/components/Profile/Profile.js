@@ -1,18 +1,15 @@
 import React from 'react';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import ProfileContainer from '../ProfileContainer/ProfileContainer';
-import "./Profile.css"
-
-
+import './Profile.css';
 
 const Profile = () => {
-    
-  return (
-    <div className="Profile">
-        <ProfileCard />
-        <ProfileContainer />
-    </div>
-  )
-}
+	return (
+		<div className='Profile'>
+			<ProfileCard />
+			<ProfileContainer />
+		</div>
+	);
+};
 
-export default Profile
+export default Profile;

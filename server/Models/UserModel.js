@@ -31,6 +31,14 @@ const UserSchema = mongoose.Schema(
 			required: true,
 			trim: true,
 		},
+		phone: {
+			type: String,
+			trim: true,
+		},
+		address: {
+			type: String,
+			trim: true,
+		},
 		isAdmin: {
 			type: Boolean,
 			default: false,
@@ -39,14 +47,15 @@ const UserSchema = mongoose.Schema(
 			type: Number,
 			default: 0, //0 for member ,1 for Admin, 2 for mod, 3 for alert
 		},
-		profilePicture: {
+		avatarPicture: {
 			type: String,
 			default:
 				'https://res.cloudinary.com/devatchannel/image/upload/v1602752402/avatar/avatar_cugq40.png',
 		},
-		coverPicture: {
+		profileImage: {
 			type: String,
-			// default: "../../client/src/assets/img/avatar.png"
+			default:
+				'https://res.cloudinary.com/duoer49sc/image/upload/v1660360223/TUNGUYEN/cover_thwnn7.jpg',
 		},
 		about: String,
 		livesin: String,

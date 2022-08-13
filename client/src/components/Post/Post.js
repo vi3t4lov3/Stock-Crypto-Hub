@@ -101,13 +101,21 @@ const Post = ({ post, hiddenPost }) => {
 						<h3>{post.title} </h3>
 						<p> {post.body}</p>
 						{post.url && (
-							<p>
-								Click <Link to={post.url}>here </Link>to view{post.url}
-							</p>
+							<>
+								<iframe
+									width='100%'
+									height='480'
+									src={`https://www.youtube.com/embed/${post.url}`}
+									frameBorder='0'
+									allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+									allowFullScreen
+									title='Embedded youtube'
+								/>
+							</>
 						)}
 					</div>
 					<img src={post.image ? '/uploads/' + post.image : ''} alt='' />
-					
+
 					<div className='postReact'>
 						{post.likes.length > 0 ? (
 							<Button

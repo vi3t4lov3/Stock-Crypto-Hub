@@ -8,14 +8,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 const AlertShare = () => {
 	const { user } = useAuthContext();
 	const [ticker, setTicker] = useState();
-	const [optionTrade, SetOptionTrade] = useState();
+	const [optionAlert, setOptionAlert] = useState(false);
+	const [sharesAlert, setSharesAlert] = useState(false);
 	const [sharesTrade, setSharesTrade] = useState();
-	const [alertCommand, setAlertCommand] = useState();
 	const [entry, setEntry] = useState();
+	const [strikes, setStrikes] = useState();
+	const [expiryDate, setExpiryDate] = useState(new Date());
 	const [stopLoss, setStopLoss] = useState();
 	const [target, setTarget] = useState();
 	const [closedPrice, setClosedPrice] = useState();
-	const [note, setNote] = useState('');
+	const [chart, setChart] = useState('');
+	const [analyst, setAnalyst] = useState('');
 	const [error, setError] = useState(null);
 
 	const handleSubmit = async (e) => {
@@ -34,9 +37,12 @@ const AlertShare = () => {
 				ticker: ticker,
 				alert_command: sharesTrade,
 				entry: entry,
+				strikes: strikes,
+				expiry_date: expiryDate,
 				stoploss: stopLoss,
 				target: target,
-				note: note,
+				chart: chart,
+				analyst: analyst,
 			}),
 		});
 		const json = await response.json();
@@ -56,6 +62,41 @@ const AlertShare = () => {
 				<div className='AlertShare'>
 					<img src={Profile} alt='' />
 					<div className='earningPost'>
+						<label>
+							<input
+								type='checkbox'
+								checked={false}
+								value={sharesAlert}
+								onChange={() => {
+									setSharesAlert(true);
+									setOptionAlert(false);
+								}}
+							/>
+							SHARES ALERT
+						</label>
+						<label>
+							<input
+								type='checkbox'
+								checked={false}
+								value={optionAlert}
+								onChange={() => {
+									setOptionAlert(true);
+									setSharesAlert(false);
+								}}
+							/>
+							OPTION ALERT
+						</label>
+						{optionAlert && (
+							<select onChange={(e) => setSharesTrade(e.target.value)}>
+								<option value=''>PLEASE SELECT ONE</option>
+								<option value={sharesTrade}>BUY CALL</option>
+								<option value={sharesTrade}>BUY PUT</option>
+								<option value={sharesTrade}>BUY DEPIT CALL</option>
+								<option value={sharesTrade}>DEPIT PUT</option>
+								<option value={sharesTrade}>CREDIT CALL</option>
+								<option value={sharesTrade}>CREDIT PUT</option>
+							</select>
+						)}
 						<input
 							type='text'
 							placeholder='Ticker'
@@ -63,30 +104,46 @@ const AlertShare = () => {
 							value={ticker}
 							required
 						/>
-						<select onChange={(e) => setSharesTrade(e.target.value)}>
-  <option value="none">test</option>
-  <option value={sharesTrade}>LONG</option>
-  <option value={sharesTrade}>SHORT</option>
-</select>
-						{/* <select className="" 
-							type="text" required="">
-							<option value="none" selected disabled hidden>LONG/SHORT TRADE</option>
-							<option value={sharesTrade} onChange={(e) => setSharesTrade(e.target.value)}>LONG </option>
-							<option value={sharesTrade} onChange={(e) => setSharesTrade(e.target.value)}>SHORT</option>
-						</select> */}
-						{/* <input
-							type='text'
-							placeholder='Command CALL/PUT LONG/SHORT'
-							onChange={(e) => setAlertCommand(e.target.value)}
-							value={alertCommand}
-						/> */}
-						<label>test</label>
-						<input
-							type='text'
-							placeholder='Entry Price'
-							onChange={(e) => setEntry(e.target.value)}
-							value={entry}
-						/>
+						{sharesAlert && (
+							<>
+								<select onChange={(e) => setSharesTrade(e.target.value)}>
+									<option value='none'>PLEASE SELECT ONE</option>
+									<option value={sharesTrade}>LONG</option>
+									<option value={sharesTrade}>SHORT</option>
+								</select>
+								<input
+									type='text'
+									placeholder='Entry Price'
+									onChange={(e) => setEntry(e.target.value)}
+									value={entry}
+								/>
+							</>
+						)}
+
+						{optionAlert && (
+							<>
+								<input
+									type='text'
+									placeholder='Option Price'
+									onChange={(e) => setEntry(e.target.value)}
+									value={entry}
+								/>
+								<input
+									type='text'
+									placeholder='Option Strike'
+									onChange={(e) => setStrikes(e.target.value)}
+									value={strikes}
+								/>
+								<div className='datepick'>
+									<option value=''>Expiry Date</option>
+									<DatePicker
+										className='datepicker'
+										selected={expiryDate}
+										onChange={(expiryDate) => setExpiryDate(setExpiryDate)}
+									/>
+								</div>
+							</>
+						)}
 						<input
 							type='text'
 							placeholder='Stoploss price'
@@ -99,12 +156,18 @@ const AlertShare = () => {
 							onChange={(e) => setTarget(e.target.value)}
 							value={target}
 						/>
+						<input
+							type='text'
+							placeholder='URL Chart if available'
+							onChange={(e) => setChart(e.target.value)}
+							value={chart}
+						/>
 
 						<textarea
 							type='text'
 							placeholder='Analyst'
-							onChange={(e) => setNote(e.target.value)}
-							value={note}
+							onChange={(e) => setAnalyst(e.target.value)}
+							value={analyst}
 						/>
 
 						<div className='postOption'>

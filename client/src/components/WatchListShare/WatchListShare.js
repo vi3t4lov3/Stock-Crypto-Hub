@@ -40,6 +40,7 @@ const WatchListShare = () => {
 				resistance,
 				analysts,
 				call,
+				chart,
 				put,
 			}),
 		});

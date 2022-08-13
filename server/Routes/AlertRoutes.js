@@ -10,6 +10,7 @@ import {
 	bearCountTicker,
 	bullCountTicker,
 	updateAlert,
+	iBuy,
 	neutralCountTicker,
 } from '../Controllers/AlertController.js';
 
@@ -23,6 +24,7 @@ router.get('/:id', getAlert);
 router.get('/', getAllAlerts);
 router.put('/:id', updateAlert);
 router.delete('/:id', deleteAlert);
+router.put('/:id/ibuy', iBuy);
 router.put('/:id/bearcount', bearCountTicker);
 router.put('/:id/bullcount', bullCountTicker);
 router.put('/:id/neutralcount', neutralCountTicker);

@@ -1,11 +1,9 @@
 .Footer{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* align-items: start; */
+    align-items: center;
     /* align-content: end; */
-    margin-top: 0.5em;
+    margin-top: 3em;
     gap: 1em;
+
 }
 .footer-container{ 
     border: 1px solid var(--blue);

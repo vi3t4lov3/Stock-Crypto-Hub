@@ -34,32 +34,21 @@ const PostShare = () => {
 	const handleSubmit = async (e) => {
 		if (user) {
 			e.preventDefault();
-			// if there is an image with post
 
 			const formData = new FormData();
-			// console.log(image)
+
+			formData.append('username', user.user.username);
+			formData.append('userId', user.user._id);
+			formData.append('body', body);
+			formData.append('title', title);
+
 			if (source) {
-				formData.append('userId', user.user._id);
-				formData.append('username', user.user.username);
-				formData.append('body', body);
-				formData.append('title', title);
 				formData.append('url', url);
-			}
-			if (image) {
+			} else if (image) {
 				const newImageName =
 					moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-') + image.name;
-				// formData.append('original', image.name)
 				formData.append('image', image);
 				formData.append('image', newImageName);
-				formData.append('userId', user.user._id);
-				formData.append('username', user.user.username);
-				formData.append('body', body);
-				formData.append('title', title);
-			} else {
-				formData.append('username', user.user.username);
-				formData.append('userId', user.user._id);
-				formData.append('body', body);
-				formData.append('title', title);
 			}
 			await axios
 				.post('/api/posts', formData, {
@@ -70,6 +59,7 @@ const PostShare = () => {
 				.then((res) => {
 					// const json = res.json();
 					// console.log(res.data);
+					setTitle(url);
 					setTitle(title);
 					setBody(body);
 					setImage(null);
@@ -86,7 +76,7 @@ const PostShare = () => {
 		<>
 			{user && (
 				<div className='PostShare'>
-					<img src={user.user.profilePicture} alt='' />
+					<img src={user.user.avatarPicture} alt='' />
 					<div>
 						<input
 							type='text'
@@ -105,7 +95,7 @@ const PostShare = () => {
 						{source && (
 							<input
 								type='text'
-								placeholder='Paste URL here'
+								placeholder='Youtube link'
 								onChange={(e) => setUrl(e.target.value)}
 								value={url}
 								required
@@ -122,11 +112,11 @@ const PostShare = () => {
 							</div>
 							<div className='otpion' onClick={urlHandler}>
 								<Icon
-									name='linkify'
+									name='youtube'
 									size='big'
 									style={{ color: 'var(--source)' }}
 								/>
-								Source
+								Video
 							</div>
 
 							<div className='otpion'>

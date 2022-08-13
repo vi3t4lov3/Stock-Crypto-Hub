@@ -1,5 +1,8 @@
 .ProfileInfo{
-    
+    width: 100%;
+}
+.ProfileInfo>div>textarea {
+    height: 200px;
 }
 .infoForm {
     display: flex;
