@@ -8,24 +8,25 @@ import alertRoute from './Routes/AlertRoutes.js';
 import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+// import * as path from 'path';
 import 'path';
-// const path = require('path');
+const path = require('path');
 // express app
 const app = express();
 
-// // to serve images inside public folder
-// app.use(express.static('public'));
+// to serve images inside public folder
+app.use(express.static('public'));
 
-// app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('../client/build'));
+	app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 // app.use(routes);
 app.get('/', (req, res) => {
-	res.sendFile(express.static('../client/build/index.html'));
+	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 //middleware
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
