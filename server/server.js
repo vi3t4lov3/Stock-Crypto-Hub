@@ -8,14 +8,15 @@ import alertRoute from './Routes/AlertRoutes.js';
 import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import * as path from 'path';
+import path from 'path';
+// const path = require('path');
 // express app
 const app = express();
 
-// to serve images inside public folder
-app.use(express.static('public'));
+// // to serve images inside public folder
+// app.use(express.static('public'));
 
-app.use('/uploads', express.static('uploads'));
+// app.use('/uploads', express.static('uploads'));
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
