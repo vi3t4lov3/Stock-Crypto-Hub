@@ -13,7 +13,10 @@ const alertSchema = mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		alert_command: { type: String, required: true, trim: true },
+		alert_command: { 
+			type: String, 
+			required: true, 
+			trim: true },
 		entry: {
 			type: Number,
 			required: true,
@@ -29,6 +32,10 @@ const alertSchema = mongoose.Schema(
 			required: true,
 			trim: true,
 		},
+		closed_price: {
+			type: Number,
+			trim: true,
+		},
 		note: {
 			type: String,
 		},
@@ -37,6 +44,11 @@ const alertSchema = mongoose.Schema(
 		bearCount: [],
 		bullCount: [],
 		neutralCount: [],
+		status:{
+			type: String,
+			trim: true,
+			default: "OPEN"
+		},
 	},
 	{
 		timestamps: true,

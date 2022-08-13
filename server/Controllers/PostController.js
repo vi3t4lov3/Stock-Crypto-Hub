@@ -141,8 +141,8 @@ export const getGroupPostByUserId = async (req, res) => {
 
 // add Add Comment to the post
 export const addComment = async (req, res) => {
-	// const postId = req.params.id;
-	// console.log(postId);
+	const postId = req.params.id;
+	console.log(postId);
 	try {
 		const post = await PostModel.findById(postId);
 		if (post) {

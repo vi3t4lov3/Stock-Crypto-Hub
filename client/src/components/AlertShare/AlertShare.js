@@ -8,12 +8,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 const AlertShare = () => {
 	const { user } = useAuthContext();
 	const [ticker, setTicker] = useState();
-	const [optionTrade, setOptionTrade] = useState();
+	const [optionTrade, SetOptionTrade] = useState();
 	const [sharesTrade, setSharesTrade] = useState();
 	const [alertCommand, setAlertCommand] = useState();
 	const [entry, setEntry] = useState();
 	const [stopLoss, setStopLoss] = useState();
 	const [target, setTarget] = useState();
+	const [closedPrice, setClosedPrice] = useState();
 	const [note, setNote] = useState('');
 	const [error, setError] = useState(null);
 
@@ -31,7 +32,7 @@ const AlertShare = () => {
 				userId: user.user._id,
 				username: user.user.username,
 				ticker: ticker,
-				alert_command: alertCommand,
+				alert_command: sharesTrade,
 				entry: entry,
 				stoploss: stopLoss,
 				target: target,
@@ -62,12 +63,23 @@ const AlertShare = () => {
 							value={ticker}
 							required
 						/>
-						<input
+						<select onChange={(e) => setSharesTrade(e.target.value)}>
+  <option value="none">test</option>
+  <option value={sharesTrade}>LONG</option>
+  <option value={sharesTrade}>SHORT</option>
+</select>
+						{/* <select className="" 
+							type="text" required="">
+							<option value="none" selected disabled hidden>LONG/SHORT TRADE</option>
+							<option value={sharesTrade} onChange={(e) => setSharesTrade(e.target.value)}>LONG </option>
+							<option value={sharesTrade} onChange={(e) => setSharesTrade(e.target.value)}>SHORT</option>
+						</select> */}
+						{/* <input
 							type='text'
 							placeholder='Command CALL/PUT LONG/SHORT'
 							onChange={(e) => setAlertCommand(e.target.value)}
 							value={alertCommand}
-						/>
+						/> */}
 						<label>test</label>
 						<input
 							type='text'

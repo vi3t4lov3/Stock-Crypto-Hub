@@ -6,12 +6,12 @@ import useFetch from '../../Hooks/FetchData';
 
 const Alerts = () => {
 	const { user } = useAuthContext();
-	const { data: earning, setEarning, error } = useFetch('/api/cal');
+	const { data: alert, setAlert, error } = useFetch('/api/alert');
 	// console.log(Earning);
 	return (
-		<div className='Earning'>
+		<div className='Alerts'>
 			{error && <div> {error} </div>}
-			{earning && <Alert data={earning} />}
+			{alert && <Alert data={alert} />}
 		</div>
 	);
 };

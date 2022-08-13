@@ -11,7 +11,7 @@ const Alert = ({ data }) => {
 		if (!user) {
 			return;
 		}
-		const response = await fetch('/api/cal/' + eventId + '/bullcount', {
+		const response = await fetch('/api/alert/' + eventId + '/bullcount', {
 			method: 'PUT',
 			body: JSON.stringify({ userId: user.user._id }),
 			headers: {
@@ -37,7 +37,7 @@ const Alert = ({ data }) => {
 		if (!user) {
 			return;
 		}
-		const response = await fetch('/api/cal/' + eventId + '/neutralCount', {
+		const response = await fetch('/api/alert/' + eventId + '/neutralCount', {
 			method: 'PUT',
 			body: JSON.stringify({ userId: user.user._id }),
 			headers: {
@@ -63,7 +63,7 @@ const Alert = ({ data }) => {
 		if (!user) {
 			return;
 		}
-		const response = await fetch('/api/cal/' + eventId + '/bearcount', {
+		const response = await fetch('/api/alert/' + eventId + '/bearcount', {
 			method: 'PUT',
 			body: JSON.stringify({ userId: user.user._id }),
 			headers: {
@@ -93,9 +93,14 @@ const Alert = ({ data }) => {
 					<Table.Header>
 						<Table.Row>
 							<Table.HeaderCell>Ticker</Table.HeaderCell>
+							<Table.HeaderCell>Current</Table.HeaderCell>
+							<Table.HeaderCell>Alert</Table.HeaderCell>
+							<Table.HeaderCell>Entry</Table.HeaderCell>
+							<Table.HeaderCell>Stoploss</Table.HeaderCell>
+							<Table.HeaderCell>Target</Table.HeaderCell>
 							<Table.HeaderCell>Date</Table.HeaderCell>
-							<Table.HeaderCell>EST. ER</Table.HeaderCell>
-							<Table.HeaderCell>Last ER</Table.HeaderCell>
+							<Table.HeaderCell>Status</Table.HeaderCell>
+							<Table.HeaderCell>AlertBy</Table.HeaderCell>
 							{/* <Table.HeaderCell>Bull/Bear</Table.HeaderCell> */}
 						</Table.Row>
 					</Table.Header>
@@ -104,49 +109,51 @@ const Alert = ({ data }) => {
 							<>
 								<Table.Row key={newData._id}>
 									<Table.Cell>
-										<center>
 											<Popup
 												content={newData.note}
 												trigger={<a>{newData.ticker}</a>}
 											/>
-										</center>
 									</Table.Cell>
 									<Table.Cell>
-										{moment(newData.AlertDate).format('MM/DD/YY')}
-										<br />
-										<p style={{ fontSize: '9px' }}>@{newData.username}</p>
-									</Table.Cell>
-									<Table.Cell>{newData.estimatedMove}%</Table.Cell>
-									<Table.Cell>{newData.lastMove}%</Table.Cell>
-									{/* <Table.Cell>{newData.lastMove}</Table.Cell> */}
-								</Table.Row>
-								<Table.Row key={newData._id}>
-									<Table.Cell>
-										<Button
-											size='mini'
-											onClick={() => bullHandler(newData._id)}
-										>
-											Bull {newData.bullCount.length}
-										</Button>
+											<Popup
+												content={newData.note}
+												trigger={<a>0000</a>}
+											/>
 									</Table.Cell>
 									<Table.Cell>
-										<Button
-											size='mini'
-											onClick={() => neutralHandler(newData._id)}
-										>
-											Neu {newData.neutralCount.length}
-										</Button>
+											<Popup
+												content={newData.note}
+												trigger={<a>{newData.alert_command}</a>}
+											/>
 									</Table.Cell>
 									<Table.Cell>
-										<Button
-											size='mini'
-											onClick={() => bearHandler(newData._id)}
-										>
-											Bear {newData.bearCount.length}
-										</Button>
+											<Popup
+												content={newData.note}
+												trigger={<a>{newData.entry}</a>}
+											/>
 									</Table.Cell>
-									<Table.Cell></Table.Cell>
-									{/* <Table.Cell>{newData.lastMove}</Table.Cell> */}
+									<Table.Cell>
+											<Popup
+												content={newData.note}
+												trigger={<a>{newData.stoploss}</a>}
+											/>
+									</Table.Cell>
+									<Table.Cell>
+											<Popup
+												content={newData.note}
+												trigger={<a>{newData.target}</a>}
+											/>
+									</Table.Cell>
+									<Table.Cell>
+										{moment(newData.createdAt).calendar()}
+									</Table.Cell>
+									<Table.Cell>{newData.status}</Table.Cell>
+									<Table.Cell>
+											<Popup
+												content={newData.note}
+												trigger={<a>{newData.username}</a>}
+											/>
+									</Table.Cell>
 								</Table.Row>
 							</>
 						))}

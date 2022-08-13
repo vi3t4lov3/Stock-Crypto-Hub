@@ -12,7 +12,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 function App() {
   const { user } = useAuthContext()
   return (
-    <div className="App ui container">
+    <div className="App">
       <BrowserRouter>
         <NavBar />
         <div className="pages">

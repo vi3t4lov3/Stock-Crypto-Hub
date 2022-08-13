@@ -54,7 +54,7 @@ const Post = ({ post, hiddenPost }) => {
 
 		if (response.ok) {
 			dispatch({ type: 'POST_LIKE', payload: json });
-			// window.location.href = '/';
+			window.location.href = '/';
 		}
 		console.error('error');
 	};
@@ -106,7 +106,7 @@ const Post = ({ post, hiddenPost }) => {
 							</p>
 						)}
 					</div>
-					<img fluid src={post.image ? '/uploads/' + post.image : ''} alt='' />
+					<img src={post.image ? '/uploads/' + post.image : ''} alt='' />
 					
 					<div className='postReact'>
 						{post.likes.length > 0 ? (
