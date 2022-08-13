@@ -179,7 +179,7 @@ const Post = ({ post, hiddenPost }) => {
 							<Comment.Group>
 								{post.comment.map((data) => (
 									<Comment>
-										<Comment.Avatar as='a' src={user.user.profilePicture} />
+										<Comment.Avatar as='a' src={user.user.avatarPicture} />
 										<Comment.Content>
 											<Comment.Author>{data.username}</Comment.Author>
 											<Comment.Metadata>

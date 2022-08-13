@@ -96,7 +96,9 @@ const Earning = ({ data }) => {
 							<Table.HeaderCell>Date</Table.HeaderCell>
 							<Table.HeaderCell>EST. ER</Table.HeaderCell>
 							<Table.HeaderCell>Last ER</Table.HeaderCell>
-							<Table.HeaderCell><center>Your Thought</center></Table.HeaderCell>
+							<Table.HeaderCell>
+								<center>Your Thought</center>
+							</Table.HeaderCell>
 							{/* <Table.HeaderCell>Bull/Bear</Table.HeaderCell> */}
 						</Table.Row>
 					</Table.Header>
@@ -120,31 +122,31 @@ const Earning = ({ data }) => {
 									<Table.Cell>{newData.estimatedMove}%</Table.Cell>
 									<Table.Cell>{newData.lastMove}%</Table.Cell>
 									<Table.Cell>
-									<Button
+										<Button
 											size='mini'
 											color='green'
 											onClick={() => bullHandler(newData._id)}
 										>
-											Bull {newData.bullCount.length}
-										</Button><br/>
+											{newData.bullCount.length}
+										</Button>
+										<br />
 										<Button
 											size='mini'
-											color='blue'
+											color='gray'
 											onClick={() => neutralHandler(newData._id)}
 										>
-											Neu {newData.neutralCount.length}
-										</Button><br/>
+											{newData.neutralCount.length}
+										</Button>
+										<br />
 										<Button
 											size='mini'
 											color='red'
 											onClick={() => bearHandler(newData._id)}
 										>
-											Bear {newData.bearCount.length}
+											{newData.bearCount.length}
 										</Button>
-										
-										</Table.Cell>
+									</Table.Cell>
 								</Table.Row>
-
 							</>
 						))}
 					</Table.Body>
