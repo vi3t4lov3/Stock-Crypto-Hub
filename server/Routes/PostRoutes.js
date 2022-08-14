@@ -7,7 +7,7 @@ import moment from 'moment';
 moment().format();
 const storage = multer.diskStorage({
 	destination: (req, file, callback) => {
-		callback(null, 'public/uploads');
+		callback(null, 'build');
 	},
 	filename: (req, file, callback) => {
 		const imagesAddedDate = moment().format('MMMM-Do-YYYY-MM-HH-MM-DD-YY-h-a-');
