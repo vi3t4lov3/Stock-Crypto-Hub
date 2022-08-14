@@ -8,8 +8,12 @@ import alertRoute from './Routes/AlertRoutes.js';
 import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import * as path from 'path';
-const _dirname = path.resolve();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// console.log('directory-name 👉️', __dirname);
 // import 'path';
 // const path = require('path');
 // express app
@@ -21,6 +25,7 @@ app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
 
 // if we're in production, serve client/build as static assets
+
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, '../client/build')));
 }
