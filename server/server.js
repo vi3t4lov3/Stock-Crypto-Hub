@@ -18,9 +18,11 @@ const __dirname = path.dirname(__filename);
 // const path = require('path');
 // express app
 const app = express();
-
+app.use(bodyParser.json({ limit: '30mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
+app.use(cors());
 // to serve images inside public folder
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public/uploads')));
 
 app.use('/uploads', express.static('uploads'));
 
