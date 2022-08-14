@@ -109,7 +109,12 @@ const Post = ({ post, hiddenPost }) => {
 							</>
 						)}
 					</div>
-					<img src={post.image ? '/uploads/' + post.image : ''} alt='' />
+					<img
+						src={
+							post.image ? process.env.REACT_APP_PUBLIC_FOLDER + post.image : ''
+						}
+						alt=''
+					/>
 					{user && (
 						<>
 							<div className='postReact'>

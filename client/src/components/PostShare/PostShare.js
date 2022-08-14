@@ -14,6 +14,7 @@ moment().format();
 
 const PostShare = () => {
 	const { user } = useAuthContext();
+	 const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 	// const { dispatch } = usePostsContext();
 	const [title, setTitle] = useState();
 	const [body, setBody] = useState();

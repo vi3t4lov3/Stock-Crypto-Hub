@@ -11,20 +11,21 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+//dirname path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// console.log('directory-name 👉️', __dirname);
-// import 'path';
-// const path = require('path');
+
 // express app
 const app = express();
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
+//user image after uploaded 
+app.use('/public', express.static('public'));
+app.use('/uploads', express.static('images'));
 app.use(cors());
 // to serve images inside public folder
 app.use(express.static(path.join(__dirname, 'public/uploads')));
-
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // if we're in production, serve client/build as static assets
 
