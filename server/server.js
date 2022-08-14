@@ -9,6 +9,7 @@ import wlRoute from './Routes/WatchListRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import * as path from 'path';
+const _dirname = path.resolve();
 // import 'path';
 // const path = require('path');
 // express app
