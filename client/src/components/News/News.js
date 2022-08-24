@@ -5,8 +5,8 @@ import { useAuthContext } from '../../Hooks/useAuthContext';
 import useFetch from '../../Hooks/FetchData';
 
 const News = () => {
-	const TOKEN = 'ipm4f2ovsqkvbnxxzrkyqmq6tqsubdmcuy4cxpzf';
-	// ipm4f2ovsqkvbnxxzrkyqmq6tqsubdmcuy4cxpzf
+	const TOKEN = '';
+	
 	// console.log(TOKEN);
 	const { user } = useAuthContext();
 	const url = `https://stocknewsapi.com/api/v1/category?section=general&items=10&page=1&token=${TOKEN}`;
